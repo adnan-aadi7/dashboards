@@ -1,13 +1,34 @@
-import React, { useState } from "react";
+import React, { useState, useEffect, useMemo } from "react";
 import { CiSettings } from "react-icons/ci"; // ✅ import added
+import { useNavigate, useLocation } from "react-router-dom";
 
 const Sidebar = ({ sidebarOpen, onSidebarClose }) => {
-  const icons = [
-    { id: "stats", src: "/icons/stats.png", alt: "stats" },
-    { id: "search", src: "/icons/search.png", alt: "search" },
-    { id: "file", src: "/icons/file.png", alt: "file" },
-  ];
-  const [activeId, setActiveId] = useState("search");
+  const navigate = useNavigate();
+  const location = useLocation();
+  
+  const icons = useMemo(() => [
+    { id: "stats", src: "/icons/stats.png", alt: "stats", path: "/afterSales/dashboard" },
+    { id: "search", src: "/icons/search.png", alt: "search", path: "/afterSales/search" },
+    { id: "file", src: "/icons/file.png", alt: "file", path: "/afterSales/files" },
+  ], []);
+  
+  // Set default active based on current route or default to stats
+  const getActiveId = () => {
+    const currentPath = location.pathname;
+    const activeIcon = icons.find(icon => icon.path === currentPath);
+    return activeIcon ? activeIcon.id : "stats";
+  };
+  
+  const [activeId, setActiveId] = useState(getActiveId());
+
+  // Update active state when route changes
+  useEffect(() => {
+    const currentPath = location.pathname;
+    const activeIcon = icons.find(icon => icon.path === currentPath);
+    setActiveId(activeIcon ? activeIcon.id : "stats");
+  }, [location.pathname, icons]);
+
+  
 
   return (
     <>
@@ -32,7 +53,12 @@ const Sidebar = ({ sidebarOpen, onSidebarClose }) => {
                   key={item.id}
                   type="button"
                   aria-label={item.id}
-                  onClick={() => setActiveId(item.id)}
+                  onClick={() => {
+                    setActiveId(item.id);
+                    if (item.path) {
+                      navigate(item.path);
+                    }
+                  }}
                   className={`transition-opacity ${isActive ? "" : "opacity-70 hover:opacity-100"}`}
                 >
                   <span

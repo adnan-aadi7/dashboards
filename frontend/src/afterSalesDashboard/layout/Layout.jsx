@@ -1,7 +1,7 @@
 import Header from "../layout/Header";
 import Sidebar from "../layout/Sidebar";
 import { useState } from "react";
-const AfterSalesLayout = ({ children, headerChildren }) => {
+const Layout = ({ children, headerChildren }) => {
   
   const [sidebarOpen, setSidebarOpen] = useState(false);
   return (
@@ -23,4 +23,4 @@ const AfterSalesLayout = ({ children, headerChildren }) => {
   );
 };
 
-export default AfterSalesLayout;
+export default Layout;

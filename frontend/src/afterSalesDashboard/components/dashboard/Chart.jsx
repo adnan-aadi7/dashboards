@@ -85,7 +85,7 @@ const Chart = () => {
           {/* Legend */}
           <div className="flex flex-wrap gap-6 mt-3 text-[5px] md:text-[9px] text-gray-300 justify-end">
             {series.map((s) => (
-              <div key={s.id} className="inline-flex items-end justify-end  gap-2">
+              <div key={s.id} className="inline-flex items-center gap-2">
                 <span className="inline-block size-2 rounded-full" style={{ backgroundColor: s.stroke }} />
                 <span className="whitespace-nowrap">{s.label}</span>
               </div>

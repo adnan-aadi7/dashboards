@@ -21,9 +21,11 @@ const TotalPilar = () => {
 
       <div className="mt-4 flex-1 flex items-end justify-center">
         <div className="w-[120px] h-[250px] rounded-lg bg-[#2A3354] relative overflow-hidden border border-[#3A456B]/40">
-          {Array.from({ length: 12 }).map((_, i) => (
-            <div key={i} className="absolute left-3 z-20" style={{ bottom: 10 + i * 22 }}>
-              <div className={`h-[2px] ${i === 6 ? 'w-6' : 'w-3'} rounded bg-white/80`} />
+          
+          {/* Added left-side scale lines to match requested pillar ticks */}
+          {Array.from({ length: 8 }).map((_, i) => (
+            <div key={`left-tick-${i}`} className="absolute left-2 z-20" style={{ top: 18 + i * 28 }}>
+              <div className={`h-[2px] ${i === 3 ? 'w-6' : 'w-4'} rounded bg-white/80`} />
             </div>
           ))}
           <div className="absolute left-0 right-0 bottom-0  z-10">

@@ -11,7 +11,7 @@ const STAGES = [
 const rows = [
   {
     street: "Project A",
-    progress: { value: 7, total: 30, barColor: "#EF4444" },
+    progress: { value: 9, total: 30, barColor: "#EF4444" },
     stageData: {
       marketResearch: { color: "#F04245", textColor: "#FFFFFF", rightTag: "3 Days" },
       legalDue: { color: "#F04245", textColor: "#FFFFFF", rightTag: "1 WK" },
@@ -57,23 +57,23 @@ const rows = [
 
 export default function ActiveDealsTable({ data = rows }) {
   return (
-    <section className="w-full mt-10 bg-[#181C3A] rounded-lg">
+    <section className="w-full mt-10 bg-[#181C3A] rounded-lg overflow-hidden">
       <div className="p-2 overflow-x-auto no-scrollbar">
         {data.map((r, i) => {
           const pct = Math.min(100, Math.max(0, (r.progress.value / r.progress.total) * 100));
           return (
-            <div key={r.street} className={i !== data.length - 1 ? " py-2" : "py-2"}>
-              <div className="w-full min-w-[1480px] lg:min-w-0 grid grid-cols-[160px_220px_220px_220px_220px_220px_220px] items-center gap-2">
+            <div key={r.street} className={i !== data.length - 1 ? " py-1.5" : "py-1.5"}>
+              <div className="w-full min-w-[900px] xl:min-w-0 grid grid-cols-[120px_160px_160px_160px_160px_160px_160px] items-center gap-1.5">
                 {/* Street */}
                 <div>
-                  <span className="inline-block rounded-full bg-black text-white/90 text-[12px] px-6 py-2">{r.street}</span>
+                  <span className="inline-block rounded-full bg-black text-white/90 text-[11px] px-4 py-1.5">{r.street}</span>
                 </div>
 
                 {/* Progress Bar (inline) */}
-                <div className="relative h-9 w-[220px] rounded-full bg-[#2A334D]">
+                <div className="relative h-7 w-[160px] rounded-full bg-[#2A334D]">
                   <div className="absolute left-0 top-0 h-full rounded-full" style={{ width: `${pct}%`, background: r.progress.barColor }} />
-                  <div className="absolute left-2 top-1/2 -translate-y-1/2 rounded-full px-3 py-[3px] text-white text-[10px] font-semibold" style={{ background: r.progress.barColor }}>Over</div>
-                  <span className="absolute right-3 top-1/2 -translate-y-1/2 text-white text-[11px] font-semibold">{r.progress.value}/{r.progress.total} DAGEN</span>
+                  <div className="absolute left-2 top-1/2 -translate-y-1/2 rounded-full px-2.5 py-[2px] text-white text-[9px] font-semibold" style={{ background: r.progress.barColor }}>Over</div>
+                  <span className="absolute right-2 top-1/2 -translate-y-1/2 text-white text-[10px] font-semibold">{r.progress.value}/{r.progress.total} DAGEN</span>
                 </div>
 
                 {/* Stage pills (inline) */}
@@ -84,13 +84,13 @@ export default function ActiveDealsTable({ data = rows }) {
                   const textColor = cfg.textColor || "#FFFFFF";
                   return (
                     <div key={s.key} className="flex items-center gap-1">
-                      <div className="flex items-center justify-between rounded-full h-9 px-2 min-w-[220px]" style={{ backgroundColor: pillColor }}>
-                        <span className="text-[11px] font-semibold" style={{ color: textColor }}>{s.label}</span>
+                      <div className="flex items-center justify-between rounded-full h-7 px-2 min-w-[160px]" style={{ backgroundColor: pillColor }}>
+                        <span className="text-[9px] font-semibold" style={{ color: textColor }}>{s.label}</span>
                         {cfg.rightTag ? (
-                          <span className="text-[11px] font-semibold text-white">{cfg.rightTag}</span>
+                          <span className="text-[9px] font-semibold text-white">{cfg.rightTag}</span>
                         ) : cfg.done ? (
-                          <span className="ml-2 inline-flex items-center justify-center w-6 h-6 rounded-full bg-white">
-                            <span className="text-[#16A34A] text-[13px] font-bold">✓</span>
+                          <span className="ml-2 inline-flex items-center justify-center w-4.5 h-4.5 rounded-full bg-white">
+                            <span className="text-[#16A34A] text-[11px] font-bold">✓</span>
                           </span>
                         ) : null}
                       </div>

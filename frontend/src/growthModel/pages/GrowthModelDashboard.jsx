@@ -1,0 +1,36 @@
+import React from 'react'
+import MarketingCards from '../components/dashboard/MarketingCards'
+import ScalingChart from '../components/dashboard/ScalingChart'
+import Marketing from '../components/dashboard/Marketing'
+import Sales from '../components/dashboard/Sales'
+
+const GrowthModelDashboard = () => {
+  return (
+   <>
+  
+   <div className='flex bg-gradient-to-r from-[#000000] to-[#F3A849] text-white text-xl p-2 -mt-5'>
+  <h3>GROWTH MODEL</h3>
+ </div>
+
+    <div className='bg-[#181C3A] w-full'>
+      <div className='mt-4'>
+        <div className='grid grid-cols-12 gap-4 items-start'>
+          <div className='col-span-20 xl:col-span-7 w-full  '>
+            <MarketingCards />
+          </div>
+          <div className=' '>
+            <ScalingChart />
+          </div>
+        </div>
+      </div>
+    </div>
+    <h1 className='text-white text-2xl font-bold bg-gradient-to-r from-[#000000] to-[#ED5E23] p-2 mt-5 mb-3 w-40'>MARKETING</h1>
+    <Marketing />
+
+    <h1 className='text-white text-2xl font-bold bg-gradient-to-r from-[#000000] to-[#ED5E23] p-2 mt-5 mb-3 w-40'>SALES</h1>
+   <Sales/>
+   </>
+  )
+}
+
+export default GrowthModelDashboard

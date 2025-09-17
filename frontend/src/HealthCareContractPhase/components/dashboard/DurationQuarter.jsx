@@ -80,11 +80,11 @@ const DurationQuarter = () => {
 
       <div className="flex flex-col xl:flex-row ">
         {/* Left Section - Area Chart */}
-        <div className="flex-1">
-          <div className=" rounded-2xl  h-[400px] w-[500px]">
+        <div className="flex-1 min-w-0">
+          <div className="rounded-2xl  h-[400px] w-full xl:w-[500px]">
             
             {/* Stacked Area Chart */}
-            <div className="h-60 bg-[#181C3A] rounded-lg p-4">
+            <div className="h-65 bg-[#181C3A] rounded-lg p-4">
               <ResponsiveContainer width="100%" height="100%">
                 <AreaChart
                   data={chartData}
@@ -206,10 +206,10 @@ const DurationQuarter = () => {
         </div>
 
         {/* Right Section - Deal Phase Pillars */}
-        <div className=" ml-5">
+        <div className=" ml-5 mt-20 lg:mt-0">
           <div className="flex gap-4">
             {dealPhases.map((phase, index) => (
-              <div key={index} className="flex flex-col w-[70px] pt-2 pb-3 bg-[#181C3A] rounded-xl">
+              <div key={index} className="flex flex-col w-[50px] pt-2 pt-3 bg-[#181C3A] ">
                 <div className="text-[10px] text-gray-300 text-center leading-snug min-h-[28px]">
                   {phase.title}
                   {phase.subtitle && (

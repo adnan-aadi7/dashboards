@@ -13,7 +13,7 @@ const GaugeSemi = ({ valueDays, targetDays, color, label }) => {
   const labelLines = String(label).split('\n')
 
   return (
-    <div className="flex flex-col items-center justify-center px-4">
+    <div className="flex flex-col items-center justify-center px-1">
       <div className="relative w-28 h-20">
         <svg viewBox="0 -10 100 65" className="w-full h-full overflow-visible">
           {/* background arc */}
@@ -89,26 +89,26 @@ const AveragePillar = ({ topDays = 3, baseDays = 7 }) => {
 
 const DurationDeadline = () => {
   return (
-    <div className=" px-3 rounded-2xl  w-[900px]">
-      <div className="px-2 md:px-3">
+    <div className=" px-2 rounded-2xl  w-full xl:w-[560px]">
+      <div className="px-2">
         <h2 className="text-white text-[22px] lg:text-[22px] font-bold tracking-wide">
           Duration Deadlines <span className="font-semibold">– Internal Research</span>
         </h2>
       </div>
 
-      <div className="mt-3 grid grid-cols-12 gap-3">
+      <div className="mt-2 grid grid-cols-12 gap-2">
         {/* Left Average Pillar */}
         <div className="col-span-12 sm:col-span-3 md:col-span-2">
           <AveragePillar />
         </div>
 
         {/* Right side content */}
-        <div className="col-span-12 sm:col-span-9 md:col-span-10 space-y-3">
+        <div className="col-span-12 sm:col-span-9 md:col-span-10 space-y-2 mt-7">
           {/* Row 1: Active deals + two gauges card */}
-          <div className="grid grid-cols-12 gap-3">
+          <div className="grid grid-cols-12 gap-2">
             {/* Active deals card */}
             <div className="col-span-12 sm:col-span-4">
-              <div className="bg-[#181C3A] rounded-xl p-3 h-full flex flex-col items-center justify-center">
+              <div className="bg-[#181C3A] rounded-xl p-2 h-full flex flex-col items-center justify-center">
                 <div className="w-[90px] h-[90px] rounded-lg bg-gradient-to-br from-[#7C3AED] to-[#22D3EE] shadow-inner flex items-center justify-center mb-2">
                   <div className="text-white text-2xl font-bold">12</div>
                 </div>
@@ -118,7 +118,7 @@ const DurationDeadline = () => {
 
             {/* Two gauges in one card */}
             <div className="col-span-12 sm:col-span-8">
-              <div className="bg-[#181C3A] rounded-xl p-3 h-full grid grid-cols-1 md:grid-cols-2 gap-3">
+              <div className="bg-[#181C3A] rounded-xl p-2 h-full grid grid-cols-1 md:grid-cols-2 gap-2">
                 <GaugeSemi valueDays={5} targetDays={3} color="#EF4444" label={"MARKET RESEARCH"} />
                 <GaugeSemi valueDays={16} targetDays={14} color="#EF4444" label={"DUE DILIGENCE\nLEGAL"} />
               </div>
@@ -126,7 +126,7 @@ const DurationDeadline = () => {
           </div>
 
           {/* Row 2: three gauges in one wide card */}
-          <div className="bg-[#181C3A] rounded-xl p-3 grid grid-cols-1 md:grid-cols-3 gap-3">
+          <div className="bg-[#181C3A] rounded-xl p-2 grid grid-cols-1 md:grid-cols-3 gap-2">
             <GaugeSemi valueDays={8} targetDays={7} color="#18D359" label={"DUE DILIGENCE\nTECHNICA"} />
             <GaugeSemi valueDays={9} targetDays={7} color="#F59E0B" label={"FLOORPLAN\nARCHITECT"} />
             <GaugeSemi valueDays={10} targetDays={7} color={"#EF4444"} label={"TAX OPTIMIZATION"} />

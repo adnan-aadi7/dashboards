@@ -3,6 +3,9 @@ import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import AfterSalesLayout from './afterSalesDashboard/layout/Layout'
 import Dashboard from './afterSalesDashboard/pages/Dashboard'
 import DashboardHealthCare from './HealthCareContractPhase/pages/Dashboard';
+import GrowthModelLayout from './growthModel/layout/Layout';
+import GrowthModelDashboard from './growthModel/pages/GrowthModelDashboard';
+
 
 const App = () => {
   return (
@@ -28,6 +31,16 @@ const App = () => {
         <AfterSalesLayout>
           <DashboardHealthCare />
         </AfterSalesLayout>
+      }
+      />
+
+      {/* growth model dashboard */}
+      <Route
+      path="/growthmodel/dashboard"
+      element={
+        <GrowthModelLayout>
+          <GrowthModelDashboard />
+        </GrowthModelLayout>
       }
       />
       </Routes>

@@ -146,33 +146,55 @@ const LargeChart = ({ height = 'h-4' }) => (
 );
 
 // Individual card component
-const Card = ({ card, compact = false }) => (
-  <div className={`rounded-lg bg-[#0A0F1F] border border-[#252B42] p-3 ${compact ? 'h-28' : 'h-32'} flex flex-col overflow-hidden`}>
-    <h3 className={`${compact ? 'text-[9px]' : 'text-[10px]'} tracking-widest text-gray-300 uppercase font-medium leading-tight`}>
+const Card = ({ card, compact = false, tall = false }) => (
+  <div className={`rounded-lg bg-gradient-to-b from-[#000000] to-[#242a4c] border border-[#3b4467] p-3 ${compact ? 'h-29' : tall ? 'h-42' : 'h-3'} flex flex-col overflow-hidden`}>
+    <h3 className={`${compact ? 'text-[9px]' : tall ? 'text-[11px]' : 'text-[10px]'} tracking-widest text-gray-300 uppercase font-medium leading-tight`}>
       {card.title}
     </h3>
-    <div className={`${compact ? 'text-lg' : 'text-xl'} font-semibold text-white`}>
+    <div className={`${compact ? 'text-lg' : tall ? 'text-2xl' : 'text-xl'} font-semibold text-white`}>
       {card.value}
     </div>
-    <div className={`${compact ? 'text-[8px]' : 'text-[9px]'} ${card.trendColor} mb-1 flex items-center gap-2`}>
-      {card.trend}
+    <div className={`${compact ? 'text-[8px]' : 'text-[9px]'} mb-1 flex items-center gap-2`}>
+      {(() => {
+        const parts = (card.trend || '').split(' ');
+        const percent = parts.shift() || '';
+        const label = parts.join(' ');
+        return (
+          <>
+            <span className={`${card.trendColor}`}>{percent}</span>
+            <span className="text-white"> {label}</span>
+          </>
+        );
+      })()}
     </div>
     <div className="mt-auto">
-      <MiniChart height={compact ? 'h-5' : 'h-5'} />
+      <MiniChart height={compact ? 'h-5' : tall ? 'h-8' : 'h-5'} />
     </div>
   </div>
 );
 
 // Larger card used for CLV (top wide card)
 const LargeStatCard = ({ card, compact = false }) => (
-  <div className={`rounded-lg bg-[#0A0F1F] border border-[#252B42] p-3 flex flex-col justify-between overflow-hidden ${compact ? 'h-36' : 'h-40'}`}>
-    <h3 className={`${compact ? 'text-[11px]' : 'text-xs'} text-gray-300 uppercase font-medium tracking-widest`}>
+  <div className={`rounded-lg bg-gradient-to-b from-[#000000] to-[#252c57] border border-[#252B42] p-3 flex flex-col justify-between overflow-hidden ${compact ? 'h-27' : 'h-40'}`}>
+    <h3 className={`${compact ? 'text-[10px]' : 'text-xs'} text-gray-300 uppercase font-medium tracking-widest`}>
       {card.title}
     </h3>
-    <div className={`${compact ? 'text-3xl' : 'text-4xl'} font-semibold text-white`}>
+    <div className={`${compact ? 'text-2xl' : 'text-2xl'} font-semibold text-white`}>
       {card.value}
     </div>
-    <div className={`text-[10px] ${card.trendColor} mb-1`}>{card.trend}</div>
+    <div className={`text-[10px] mb-1`}>
+      {(() => {
+        const parts = (card.trend || '').split(' ');
+        const percent = parts.shift() || '';
+        const label = parts.join(' ');
+        return (
+          <>
+            <span className={`${card.trendColor}`}>{percent}</span>
+            <span className="text-white"> {label}</span>
+          </>
+        );
+      })()}
+    </div>
     <LargeChart height={compact ? 'h-12' : 'h-16'} />
   </div>
 );
@@ -200,7 +222,7 @@ const Section = ({ section }) => (
     <div className="p-3">
       <div className="grid grid-cols-2 gap-2">
         {section.cards.map((card) => (
-          <Card key={card.id} card={card} />
+          <Card key={card.id} card={card} tall={section.id === 'monthly-revenue'} />
         ))}
       </div>
     </div>
@@ -237,7 +259,7 @@ const Cards = () => {
               .map((item) => (
                 <div
                   key={item.id}
-                  className={`${item.background} ${item.textColor} rounded-xl p-6 h-[360px] relative overflow-hidden bg-gradient-to-b from-[#000000] to-[#20A804] border border-[#20A804]`}
+                  className={`${item.background} ${item.textColor} rounded-xl p-6 h-[400px] relative overflow-hidden bg-gradient-to-b from-[#000000] to-[#20A804] border border-[#20A804]`}
                 >
                   <h2 className="text-lg md:text-2xl font-medium uppercase text-gray-200">
                     {item.title}

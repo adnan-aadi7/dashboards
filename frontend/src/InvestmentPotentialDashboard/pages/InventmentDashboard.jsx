@@ -1,6 +1,7 @@
 import React from "react";
 import Cards from "../../InvestmentPotentialDashboard/components/Dashboard/Cards";
-
+import Social from "../../InvestmentPotentialDashboard/components/Dashboard/SocialCards"; 
+import BuinessCards from "../../InvestmentPotentialDashboard/components/Dashboard/BuinessCards"
 const FinanencialDashboard = () => {
   return (
     <>
@@ -20,8 +21,22 @@ const FinanencialDashboard = () => {
           </div>
         </div>
       </div>
+
+      {/* Growth Model */}
       <div className="flex bg-gradient-to-r from-black to-[#F3A849] mt-5 rounded-xl text-white text-xl p-2">
-        <h3>INVESTMENT MODEL</h3>
+        <h3>GROWTH MODEL</h3>
+      </div>
+
+      {/* Social Section under Growth Model */}
+      <div className="bg-[#181C3A] w-full mt-4 p-2 rounded-xl">
+        <Social />
+      </div>
+      <div className="flex bg-gradient-to-r from-black to-cyan-400 mt-5 rounded-xl text-white text-xl p-2">
+        <h3>BUISNESS MODEL</h3>
+      </div>
+       {/* Social Section under Growth Model */}
+      <div className="bg-[#181C3A] w-full mt-4 p-2 rounded-xl">
+        <BuinessCards />
       </div>
     </>
   );

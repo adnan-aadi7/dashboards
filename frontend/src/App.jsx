@@ -5,10 +5,7 @@ import Dashboard from './afterSalesDashboard/pages/Dashboard'
 import DashboardHealthCare from './HealthCareContractPhase/pages/Dashboard';
 import GrowthModelLayout from './growthModel/layout/Layout';
 import GrowthModelDashboard from './growthModel/pages/GrowthModelDashboard';
-import FinancialLayout from './FinancialDashbord/layout/Layout';
-import FinancialDashboard from './FinancialDashbord/pages/FinanencialDashboard';
-import InventmentDashboard from './InvestmentPotentialDashboard/pages/InventmentDashboard';
-import InvestementLayout from "./InvestmentPotentialDashboard/layout/Layout"
+import BusinessDashboard from './BusinessModel/pages/BusinessDashboard';
 
 
 
@@ -50,23 +47,20 @@ const App = () => {
         </GrowthModelLayout>
       }
       />
+
       <Route
-      path="/financial/dashboard"
-      element={
-        <FinancialLayout>
-          <FinancialDashboard />
-        </FinancialLayout>
-      }
+        path="/businessmodel/dashboard"
+        element={
+          <GrowthModelLayout>
+            <BusinessDashboard />
+          </GrowthModelLayout>
+        }
       />
-      <Route
-      path="/investment/dashboard"
-      element={
-        <InvestementLayout>
-          <InventmentDashboard />
-        </InvestementLayout>
-      }
-      />
+
+
+      
       </Routes>
+
 
   </Router>
    

@@ -2,7 +2,7 @@ import React from "react";
 import { ResponsiveContainer, AreaChart, Area } from "recharts";
 
 const LegendDot = ({ color }) => (
-  <span className="inline-block w-2 h-2 sm:w-2.5 sm:h-2.5 rounded-full mr-1 sm:mr-2" style={{ backgroundColor: color }} />
+  <span className="inline-block w-1.5 h-1.5 rounded-full mr-0.5 sm:mr-1" style={{ backgroundColor: color }} />
 );
 
 export default function ScalingChart() {
@@ -13,8 +13,8 @@ export default function ScalingChart() {
     { id: "huur", label: "HUUR INKOMSTEN", color: "#FF896E" },
   ];
 
-  const months = ["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"];
-  const yTicks = ["10M","5M","1M","500K","100K","50K"]; // visual labels only
+  const months = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
+  const yTicks = ["10M", "5M", "1M", "500K", "100K", "50K"]; // visual labels only
 
   // Simple demo data to render areas; values are scaled to create similar shapes
   const data = [
@@ -36,8 +36,8 @@ export default function ScalingChart() {
     <div className="rounded-2xl border border-[#252B42] text-white w-full max-w-full overflow-hidden">
       {/* Top gradient bar */}
       <div className="rounded-xl px-2 sm:px-3 py-1.5 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-2 sm:gap-0">
-        <div className="text-[10px] sm:text-xs tracking-wide">SCALING SPEED</div>
-        <div className="flex flex-wrap items-center gap-2 sm:gap-4 text-[8px] sm:text-[10px]">
+        <div className="text-[10px] sm:text-xs tracking-wide">REVENUE</div>
+        <div className="flex flex-nowrap items-center gap-1.5 sm:gap-2 text-[7px] sm:text-[8px] overflow-x-auto">
           {legends.map((l) => (
             <span key={l.id} className="flex items-center whitespace-nowrap">
               <LegendDot color={l.color} />

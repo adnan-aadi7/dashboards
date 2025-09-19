@@ -1,4 +1,5 @@
 import React from "react";
+import { Sparklines, SparklinesLine } from "react-sparklines";
 import Gauge from "./Guage";
 
 const SectionHeader = ({ text, bg }) => (
@@ -8,9 +9,15 @@ const SectionHeader = ({ text, bg }) => (
     {text}
   </div>
 );
-
+const SparkMini = ({
+  data = [5, 20, 8, 30, 15, 40, 10, 35, 25, 45, 20, 50, 15, 55, 30],
+}) => (
+  <Sparklines data={data} limit={0} width={260} height={36} margin={4}>
+    <SparklinesLine color="#FF3B61" />
+  </Sparklines>
+);
 const StatCard = ({ title, value, note, change, header }) => (
-  <div className="rounded-lg  overflow-hidden border border-[#252B42] flex flex-col h-full min-h-[120px]">
+  <div className="rounded-lg overflow-hidden border border-[#252B42] flex flex-col h-full min-h-[120px]">
     {/* Card Header (optional) */}
     {header && (
       <div
@@ -51,12 +58,9 @@ const StatCard = ({ title, value, note, change, header }) => (
         )}
       </div>
 
-      <div className="h-4 sm:h-6 -mx-2 sm:-mx-3 -mb-2 sm:-mb-3 mt-auto">
-        <img
-          src="/graphpink.png"
-          alt="spark"
-          className="w-full h-full object-cover"
-        />
+      {/* Sparkline replace image */}
+      <div className="h-6 sm:h-8 -mx-2 sm:-mx-3 -mb-2 sm:-mb-3 mt-auto flex items-center">
+        <SparkMini />
       </div>
     </div>
   </div>

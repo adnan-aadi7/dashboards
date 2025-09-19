@@ -30,10 +30,7 @@ const StatCard = ({ title, value, note, change }) => (
       </div>
     )}
 
-    {/* Sparkline / Graph only for StatCard */}
-    <div className="h-7 w-full mt-5">
-      <img src="/card.png" alt="spark" className="w-full h-full object-cover" />
-    </div>
+    
   </div>
 );
 

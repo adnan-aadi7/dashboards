@@ -9,10 +9,7 @@ const LegendDot = ({ color }) => (
 );
 
 export default function ScalingChart() {
-
-
- 
-  const yTicks = ["10M","5M","1M","500K","100K","50K"];
+  const yTicks = ["", "5M", "1M", "500K", "100K", "50K"];
 
   const data = [
     { m: "Jan", blue: 50, green: 25, pink: 10 },
@@ -30,15 +27,10 @@ export default function ScalingChart() {
   ];
 
   return (
-    <div className=" text-white w-full h-full">
-      {/* Top legend */}
-        <div className="text-[9px] sm:text-[6px] tracking-wide text-white whitespace-nowrap">
-          3 MONTHS BACK 3 MONTHS FORECAST PROGNOSE
-        </div>
-
+    <div className="rounded-2xl text-white w-full h-full">
       {/* Chart area */}
       <div
-        className="mt-2 rounded-xl bg-[#0C132A] p-2 h-[200px]"
+        className="mt-4 rounded-xl bg-[#000000] p-2 h-[290px]"
         style={{ boxShadow: "inset 0 0 0 1px rgba(255,255,255,0.05)" }}
       >
         <div className="relative w-full h-full">
@@ -49,6 +41,10 @@ export default function ScalingChart() {
             ))}
           </div>
           {/* Recharts area */}
+          <div class="text-xs sm:text-sm md:text-base lg:text-lg xl:text-xl font-medium ">
+            QUARTER GOAL LESSEN CYCLE TIME
+          </div>
+
           <div className="absolute inset-0 left-10 right-2 top-1 bottom-4">
             <ResponsiveContainer width="100%" height="100%">
               <AreaChart data={data}>
@@ -66,9 +62,24 @@ export default function ScalingChart() {
                     <stop offset="100%" stopColor="#E46AA3" stopOpacity={0} />
                   </linearGradient>
                 </defs>
-                <Area type="monotone" dataKey="blue" fill="url(#areaBlue)" stackId="1" />
-                <Area type="monotone" dataKey="green" fill="url(#areaGreen)" stackId="1" />
-                <Area type="monotone" dataKey="pink" fill="url(#areaPink)" stackId="1" />
+                <Area
+                  type="monotone"
+                  dataKey="blue"
+                  fill="url(#areaBlue)"
+                  stackId="1"
+                />
+                <Area
+                  type="monotone"
+                  dataKey="green"
+                  fill="url(#areaGreen)"
+                  stackId="1"
+                />
+                <Area
+                  type="monotone"
+                  dataKey="pink"
+                  fill="url(#areaPink)"
+                  stackId="1"
+                />
               </AreaChart>
             </ResponsiveContainer>
           </div>

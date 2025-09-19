@@ -1,7 +1,7 @@
 import React from "react";
 
 const SectionHeader = ({ title }) => (
-  <div className="w-full rounded-t-lg bg-gradient-to-r from-[#000000] to-[#ED5E23] text-white text-xs font-semibold tracking-widest px-3 py-1">
+  <div className="w-full rounded-t-lg bg-gradient-to-r from-[#000000] to-[#ED5E23] text-white text-xs font-semibold tracking-widest px-3 py-2">
     {title}
   </div>
 );
@@ -12,7 +12,7 @@ const StatCard = ({ title, value, note }) => (
     <div className="text-white text-xl font-semibold mb-1">{value}</div>
     <div className="text-[9px] text-gray-400 mb-2">{note}</div>
     <div className="h-6 -mx-3 -mb-3">
-      <img src="/graphpink.png" alt="spark" className="w-full h-full object-fill" />
+      <img src="/graphpink.png" alt="spark" className="w-full h-full object-cover" />
     </div>
   </div>
 );
@@ -56,7 +56,7 @@ export default function Marketing() {
       {/* Potential (no inner cards, fixed size) */}
       <div className="col-span-12 lg:col-span-4">
         <SectionPanel title="POTENTIAL">
-          <div className="rounded-lg  h-[280px]" />
+          <div className="rounded-lg  h-[230px]" />
         </SectionPanel>
       </div>
     </div>

@@ -1,6 +1,4 @@
 ﻿import React from "react";
-import { CircularProgressbar, buildStyles } from 'react-circular-progressbar';
-import 'react-circular-progressbar/dist/styles.css';
 
 const SectionHeader = ({ title }) => (
   <div className="w-full rounded-t-lg bg-gradient-to-r from-[#000000] to-[#ED5E23] text-white text-xs font-semibold tracking-widest px-3 py-2">
@@ -14,7 +12,7 @@ const StatCard = ({ title, value, note }) => (
     <div className="text-white text-xl font-semibold mb-1">{value}</div>
     <div className="text-[9px] text-gray-400 mb-2">{note}</div>
     <div className="h-6 -mx-3 -mb-3">
-      <img src="/graphpink.png" alt="spark" className="w-full h-full object-fill" />
+      <img src="/graphpink.png" alt="spark" className="w-full h-full object-cover" />
     </div>
   </div>
 );
@@ -28,40 +26,47 @@ const SectionPanel = ({ title, children }) => (
   </div>
 );
 
-function GaugeChartWithLibrary({ value = 10.8, min = 0, max = 20 }) {
-  const clamped = Math.max(min, Math.min(value, max));
-  const percent = ((clamped - min) / (max - min)) * 100; // 0-100
+function Gauge({ value = 10.8, min = 0, max = 20 }) {
+  const normalized = Math.max(min, Math.min(value, max));
+  const percent = (normalized - min) / (max - min);
+
+  const cx = 100;
+  const cy = 100;
+  const radius = 70;
+
+  const polarToCartesian = (centerX, centerY, r, angleInDegrees) => {
+    const angleInRadians = (angleInDegrees - 90) * Math.PI / 180.0;
+    return {
+      x: centerX + r * Math.cos(angleInRadians),
+      y: centerY + r * Math.sin(angleInRadians)
+    };
+  };
+
+  const describeArc = (x, y, r, startAngle, endAngle) => {
+    const start = polarToCartesian(x, y, r, endAngle);
+    const end = polarToCartesian(x, y, r, startAngle);
+    const largeArcFlag = endAngle - startAngle <= 180 ? "0" : "1";
+
+    return [
+      "M", start.x, start.y,
+      "A", r, r, 0, largeArcFlag, 0, end.x, end.y
+    ].join(" ");
+  };
+
+  const startAngle = 180; // left
+  const endAngle = 360; // right
+  const angleSpan = endAngle - startAngle; // 180
+  const currentAngle = startAngle + angleSpan * percent;
 
   return (
-    <div className="relative flex items-center justify-center w-full max-w-[420px] mx-auto">
-      <div className="w-full" style={{ aspectRatio: '2 / 1' }}>
-        <CircularProgressbar
-          value={100}
-          circleRatio={0.5}
-          styles={buildStyles({
-            rotation: 0.75, // start at left
-            strokeLinecap: 'round',
-            trailColor: 'transparent',
-            pathColor: '#9FA6B2', // gray remainder
-            pathTransitionDuration: 0
-          })}
-        />
-        <div className="absolute inset-0">
-          <CircularProgressbar
-            value={percent}
-            circleRatio={0.5}
-            styles={buildStyles({
-              rotation: 0.75,
-              strokeLinecap: 'round',
-              trailColor: 'transparent',
-              pathColor: '#F0A650', // orange progress
-              textColor: 'transparent'
-            })}
-          />
-        </div>
-      </div>
-      <div className="absolute top-[52%] -translate-y-1/2 text-center">
-        <div className="text-white text-6xl font-semibold leading-none">{clamped}</div>
+    <div className="relative flex items-center justify-center">
+      <svg viewBox="0 0 200 140" className="w-full max-w-[360px]">
+        <path d={describeArc(cx, cy, radius, startAngle, endAngle)} stroke="#646B79" strokeWidth="18" fill="none" strokeLinecap="round" />
+        <path d={describeArc(cx, cy, radius, startAngle, currentAngle)} stroke="#F2B46D" strokeWidth="18" fill="none" strokeLinecap="round" />
+        <path d={describeArc(cx, cy, radius, currentAngle, endAngle)} stroke="#9CA3AF33" strokeWidth="18" fill="none" strokeLinecap="round" />
+      </svg>
+      <div className="absolute top-[44%] -translate-y-1/2 text-center">
+        <div className="text-white text-6xl font-semibold leading-none">{value}</div>
         <div className="text-[10px] tracking-widest text-gray-300 mt-2">WEEKS</div>
       </div>
     </div>
@@ -87,7 +92,7 @@ function Funnel() {
               className="relative h-10 text-white flex items-center px-4 rounded-md shadow-[0_8px_18px_rgba(0,0,0,0.35)]"
               style={{
                 background: "linear-gradient(90deg, #0E3B33 0%, #00D18F 100%)",
-                
+                // clipPath: "polygon(4% 0, 100% 0, 96% 100%, 0 100%)"
               }}
             >
               <span className="text-[10px] tracking-widest opacity-90">{step.label}</span>
@@ -123,12 +128,12 @@ export default function Sales() {
           <div className="space-y-4">
             <div>
               <div className="text-[10px] tracking-widest text-gray-300 mb-2">AVG. SALES CYCLE DURATION</div>
-              <div className="rounded-lg bg-[#0A0F1F] px-4 flex items-center justify-center">
-                <GaugeChartWithLibrary value={10.8} min={0} max={20} />
+              <div className="rounded-lg bg-[#0A0F1F] border border-[#252B42] p-4 flex items-center justify-center">
+                <Gauge value={10.8} min={0} max={20} />
               </div>
             </div>
 
-            <div className="rounded-lg bg-gradient-to-l  -mt-10">
+            <div className="rounded-lg bg-[#0A0F1F]  ">
               <Funnel />
             </div>
           </div>

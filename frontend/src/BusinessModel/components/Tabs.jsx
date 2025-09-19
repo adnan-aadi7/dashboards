@@ -1,7 +1,12 @@
 import React, { useState } from 'react'
+import TotalOverView from './TotalOverView'
 
 export default function Tabs({ heading = 'TOTAL OVERVIEW', tabs = [], defaultActive = 0, renderContent }) {
+  const defaultTabs = ['TOTAL OVERVIEW', 'TOTAL OVERVIEW', 'DEALS ZORG', 'PORTFOLIO', 'DEALS INDUSTRIE']
+  const tabList = tabs.length ? tabs : defaultTabs
   const [active, setActive] = useState(defaultActive)
+
+  const render = renderContent || (() => <TotalOverView />)
 
   return (
     <section className="w-full">
@@ -10,7 +15,7 @@ export default function Tabs({ heading = 'TOTAL OVERVIEW', tabs = [], defaultAct
       </div>
       <div className="mt-2 px-2">
         <div className="flex gap-4 text-[11px]">
-          {tabs.map((t, i) => (
+          {tabList.map((t, i) => (
             <button
               key={t}
               onClick={() => setActive(i)}
@@ -23,7 +28,7 @@ export default function Tabs({ heading = 'TOTAL OVERVIEW', tabs = [], defaultAct
       </div>
 
       <div className="mt-2">
-        {renderContent ? renderContent(active) : null}
+        {render(active)}
       </div>
     </section>
   )

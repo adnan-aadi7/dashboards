@@ -1,4 +1,5 @@
 import React from "react";
+import { Sparklines, SparklinesLine } from 'react-sparklines';
 
 const SectionHeader = ({ title, gradient = true }) => (
   <div className={`${gradient ? "bg-gradient-to-r from-[#000000] to-[#ED5E23]" : "bg-transparent"} w-full rounded-t-lg text-white text-xl font-semibold tracking-widest px-3 py-2`}>
@@ -13,13 +14,18 @@ const Card = ({ children, className = "" }) => (
 );
 
 const SummarySpark = () => (
-  <div className="h-16 w-full">
-    <img src="/graphpink.png" alt="spark" className="w-full h-full object-cover opacity-80" />
+  <div className="h-16 w-full relative flex items-center">
+    <div className="absolute inset-x-0 bottom-0 h-full " />
+    <div className="relative z-10 w-full mt-10">
+      <Sparklines data={[5, 12, 8, 15, 7, 18, 6, 20, 5, 17, 9, 14]} limit={0} width={400} height={48} margin={4}>
+        <SparklinesLine color="#DB2777" style={{ strokeWidth: 3, fill: "none", filter: "drop-shadow(0 0 6px rgba(219,39,119,0.6))" }} />
+      </Sparklines>
+    </div>
   </div>
 );
 
 const MetricPill = ({ label }) => (
-  <div className="rounded-md border border-[#1E2437] bg-[#0A0F1F] text-[5px] text-gray-300 px-1 py-1">
+  <div className="rounded-md border border-[#1E2437] bg-[#0A0F1F] text-[3px] text-gray-300 px-1 py-1">
     {label}
   </div>
 );
@@ -27,7 +33,7 @@ const MetricPill = ({ label }) => (
 const ChannelCard = ({ title }) => (
   <Card className="p-3">
     <div className="text-white text-sm font-semibold tracking-wide mb-3">{title}</div>
-    <div className="grid grid-cols-3 gap-1">
+    <div className="grid grid-cols-3 gap-1 ">
       <MetricPill label="MONEY SPENT" />
       <MetricPill label="REVENUE GAINED" />
       <MetricPill label="ROAS/POAS" />
@@ -59,8 +65,9 @@ export default function PotentialPerChannel() {
           {/* Left summary */}
           <Card className="col-span-12 lg:col-span-6">
             <div className="p-3">
-              <div className="text-gray-300 text-xs tracking-widest">POTENTIAL UNTAPPED</div>
-              <div className="mt-1.5 text-3xl font-semibold text-white">90%</div>
+              <div className="text-gray-300 text-xs tracking-widest">POTENTIAL UNTAPPED 
+                <br />   </div>
+              <div className="mt-6 text-3xl font-semibold text-white">90%</div>
               <div className="mt-1.5 flex items-center gap-2 text-[10px] text-gray-300">
                 <span className="text-[#F26D6D] bg-[#3A1020] px-1.5 py-0.5 rounded">-12%</span>
                 <span>VS LAST 3 MONTHS</span>

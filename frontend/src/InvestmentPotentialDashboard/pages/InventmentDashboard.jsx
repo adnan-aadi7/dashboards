@@ -2,6 +2,7 @@ import React from "react";
 import Cards from "../../InvestmentPotentialDashboard/components/Dashboard/Cards";
 import Social from "../../InvestmentPotentialDashboard/components/Dashboard/SocialCards"; 
 import BuinessCards from "../../InvestmentPotentialDashboard/components/Dashboard/BuinessCards"
+import Organization from "../../InvestmentPotentialDashboard/components/Dashboard/Organizational"
 const FinanencialDashboard = () => {
   return (
     <>
@@ -38,6 +39,17 @@ const FinanencialDashboard = () => {
       <div className="bg-[#181C3A] w-full mt-4 p-2 rounded-xl">
         <BuinessCards />
       </div>
+       <div className="p-5">
+      {/* Header */}
+      <div className="flex bg-gradient-to-r from-black to-cyan-400 mt-5 rounded-xl text-white text-xl p-2">
+        <h3>ORGANIZATIONAL MODEL</h3>
+      </div>
+
+      {/* Polar Area Chart below header */}
+      <div className="mt-5 w-full">
+        <Organization />
+      </div>
+    </div>
     </>
   );
 };

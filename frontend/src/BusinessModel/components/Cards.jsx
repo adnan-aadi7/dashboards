@@ -6,8 +6,8 @@ const cardData = [
     id: 'total-contract-value',
     type: 'large',
     title: 'TOTAL CONTRACT VALUE',
-    value: '$180.000',
-    background: 'bg-gradient-to-b from-[#0B1F0C] via-[#0F3A15] to-[#16A34A]',
+    value: '$180,000',
+    background: 'bg-gradient-to-b from-green-600 to-green-400',
     textColor: 'text-white'
   },
   {
@@ -131,71 +131,42 @@ const cardData = [
   }
 ];
 
-// Small area chart component (uses public/Vector.png like Marketing.jsx)
-const MiniChart = ({ height = 'h-4' }) => (
-  <div className={`w-full ${height}  -mb-3`}>
-    <img src="/Graph.png" alt="spark" className="w-full h-full object-fill" />
-  </div>
-);
-
-// Large variant used for big top cards
-const LargeChart = ({ height = 'h-4' }) => (
-  <div className={`w-full ${height}  -mb-8`}>
-    <img src="/Graph.png" alt="spark" className="w-full h-6 object-fill" />
+// Small area chart component
+const MiniChart = () => (
+  <div className="w-full h-6">
+    <svg width="100%" height="100%" viewBox="0 0 100 20" className="overflow-visible">
+      <defs>
+        <linearGradient id="chartGradient" x1="0%" y1="0%" x2="0%" y2="100%">
+          <stop offset="0%" stopColor="#22D3EE" stopOpacity="0.3"/>
+          <stop offset="100%" stopColor="#22D3EE" stopOpacity="0"/>
+        </linearGradient>
+      </defs>
+      <path
+        d="M0,15 Q10,12 20,8 T40,5 T60,10 T80,7 T100,4"
+        stroke="#22D3EE"
+        strokeWidth="1.5"
+        fill="url(#chartGradient)"
+        className="opacity-90"
+      />
+    </svg>
   </div>
 );
 
 // Individual card component
-const Card = ({ card, compact = false, tall = false }) => (
-  <div className={`rounded-lg bg-gradient-to-b from-[#000000] to-[#242a4c] border border-[#3b4467] p-3 ${compact ? 'h-29' : tall ? 'h-42' : 'h-3'} flex flex-col overflow-hidden`}>
-    <h3 className={`${compact ? 'text-[9px]' : tall ? 'text-[11px]' : 'text-[10px]'} tracking-widest text-gray-300 uppercase font-medium leading-tight`}>
+const Card = ({ card }) => (
+  <div className="bg-gray-800 rounded-lg p-4 h-32 flex flex-col justify-between">
+    <h3 className="text-xs text-gray-300 uppercase font-medium leading-tight">
       {card.title}
     </h3>
-    <div className={`${compact ? 'text-lg' : tall ? 'text-2xl' : 'text-xl'} font-semibold text-white`}>
+    <div className="text-xl font-bold text-white">
       {card.value}
     </div>
-    <div className={`${compact ? 'text-[8px]' : 'text-[9px]'} mb-1 flex items-center gap-2`}>
-      {(() => {
-        const parts = (card.trend || '').split(' ');
-        const percent = parts.shift() || '';
-        const label = parts.join(' ');
-        return (
-          <>
-            <span className={`${card.trendColor}`}>{percent}</span>
-            <span className="text-white"> {label}</span>
-          </>
-        );
-      })()}
+    <div className={`text-xs ${card.trendColor} mb-1`}>
+      {card.trend}
     </div>
-    <div className="mt-auto">
-      <MiniChart height={compact ? 'h-5' : tall ? 'h-8' : 'h-5'} />
+    <div className="flex-1">
+      <MiniChart />
     </div>
-  </div>
-);
-
-// Larger card used for CLV (top wide card)
-const LargeStatCard = ({ card, compact = false }) => (
-  <div className={`rounded-lg bg-gradient-to-b from-[#000000] to-[#252c57] border border-[#252B42] p-3 flex flex-col justify-between overflow-hidden ${compact ? 'h-27' : 'h-40'}`}>
-    <h3 className={`${compact ? 'text-[10px]' : 'text-xs'} text-gray-300 uppercase font-medium tracking-widest`}>
-      {card.title}
-    </h3>
-    <div className={`${compact ? 'text-2xl' : 'text-2xl'} font-semibold text-white`}>
-      {card.value}
-    </div>
-    <div className={`text-[10px] mb-1`}>
-      {(() => {
-        const parts = (card.trend || '').split(' ');
-        const percent = parts.shift() || '';
-        const label = parts.join(' ');
-        return (
-          <>
-            <span className={`${card.trendColor}`}>{percent}</span>
-            <span className="text-white"> {label}</span>
-          </>
-        );
-      })()}
-    </div>
-    <LargeChart height={compact ? 'h-12' : 'h-16'} />
   </div>
 );
 
@@ -210,36 +181,34 @@ const SplitCard = ({ cards }) => (
 
 // Section header component
 const SectionHeader = ({ title }) => (
-  <div className="bg-gradient-to-r from-[#000000] to-[#22D3EE] text-white px-4 py-2 rounded-t-lg">
+  <div className="bg-gradient-to-r from-cyan-500 to-cyan-400 text-white px-4 py-2 rounded-t-lg">
     <h2 className="text-sm font-medium uppercase">{title}</h2>
   </div>
 );
 
-// Section component (panel with header included)
+// Section component
 const Section = ({ section }) => (
-  <div className="rounded-lg overflow-hidden border border-[#252B42] bg-[#0B1020]">
+  <div className="space-y-2">
     {section.title && <SectionHeader title={section.title} />}
-    <div className="p-3">
-      <div className="grid grid-cols-2 gap-2">
-        {section.cards.map((card) => (
-          <Card key={card.id} card={card} tall={section.id === 'monthly-revenue'} />
-        ))}
-      </div>
+    <div className="grid grid-cols-2 gap-2">
+      {section.cards.map((card) => (
+        <Card key={card.id} card={card} />
+      ))}
     </div>
   </div>
 );
 
-// Special section for customer revenue with large card + 2x2 grid (panel with header)
+// Special section for customer revenue with large card + 2x2 grid
 const CustomerRevenueSection = ({ section }) => (
-  <div className="rounded-lg overflow-hidden border border-[#252B42] bg-[#0B1020]">
+  <div className="space-y-2">
     {section.title && <SectionHeader title={section.title} />}
-    <div className="p-3 space-y-1">
+    <div className="space-y-2">
       {/* Large CLV card */}
-      <LargeStatCard card={section.cards[0]} compact />
+      <Card card={section.cards[0]} />
       {/* 2x2 grid for remaining cards */}
-      <div className="grid grid-cols-2 gap-1">
+      <div className="grid grid-cols-2 gap-2">
         {section.cards.slice(1).map((card) => (
-          <Card key={card.id} card={card} compact />
+          <Card key={card.id} card={card} />
         ))}
       </div>
     </div>
@@ -249,25 +218,23 @@ const CustomerRevenueSection = ({ section }) => (
 // Main Cards component
 const Cards = () => {
   return (
-    <div className="">
-      <div className="grid ">
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-4 ">
+    <div className="bg-black min-h-screen p-4">
+      <div className="max-w-7xl mx-auto">
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-4">
           {/* Large Total Contract Value Card */}
-          <div className="lg:col-span-3 ">
+          <div className="lg:col-span-3">
             {cardData
               .filter(item => item.type === 'large')
               .map((item) => (
                 <div
                   key={item.id}
-                  className={`${item.background} ${item.textColor} rounded-xl p-6 h-[400px] relative overflow-hidden bg-gradient-to-b from-[#000000] to-[#20A804] border border-[#20A804]`}
+                  className={`${item.background} ${item.textColor} rounded-lg p-6 h-48 flex flex-col justify-center items-center`}
                 >
-                  <h2 className="text-lg md:text-2xl font-medium uppercase text-gray-200">
+                  <h2 className="text-sm font-medium uppercase mb-4">
                     {item.title}
                   </h2>
-                  <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
-                    <div className="text-5xl md:text-6xl font-extrabold">
-                      {item.value}
-                    </div>
+                  <div className="text-4xl font-bold">
+                    {item.value}
                   </div>
                 </div>
               ))}
@@ -275,12 +242,12 @@ const Cards = () => {
 
           {/* Main content area */}
           <div className="lg:col-span-9">
-            <div className="grid grid-cols-1 lg:grid-cols-3 gap-2">
+            <div className="space-y-6">
               {cardData
                 .filter(item => item.type === 'section')
                 .map((section) => (
-                  <div key={section.id} className="w-full ">
-                    {['customer-revenue', 'revenue-streams'].includes(section.id) ? (
+                  <div key={section.id}>
+                    {section.id === 'customer-revenue' ? (
                       <CustomerRevenueSection section={section} />
                     ) : (
                       <Section section={section} />

@@ -68,6 +68,8 @@ const App = () => {
       />
       </Routes>
 
+      routes
+
   </Router>
    
    </>

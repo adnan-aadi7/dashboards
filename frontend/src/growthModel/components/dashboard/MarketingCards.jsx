@@ -1,4 +1,5 @@
 import React from "react";
+import { Sparklines, SparklinesLine } from 'react-sparklines';
 
 export default function MarketingCards() {
   const bigCards = [
@@ -53,6 +54,12 @@ export default function MarketingCards() {
   const scaleCard = rightTop.find((x) => x.type === "scale");
   const payback = rightTop.find((x) => x.type === "widget");
 
+  const SparkMini = () => (
+    <Sparklines data={[5, 10, 5, 20,60,4,6,5, 10, 5, 20,60]} limit={0} width={260} height={32} margin={4}>
+      <SparklinesLine color="#00D394" />
+    </Sparklines>
+  );
+
   return (
     <div className="grid grid-cols-12 gap-4 ">
       {bigCards.map((card) => (
@@ -91,8 +98,8 @@ export default function MarketingCards() {
               <div className="text-center text-[7px] tracking-wider opacity-90">{payback.sub}</div>
             </div>
           </div>
-          <div className="h-8 -mx-1.5 -mb-1.5 mt-1">
-            <img src="/Graph.png" alt="graph" className="w-full h-full object-cover" />
+          <div className="h-8 -mx-1.5 -mb-1.5 mt-1 flex items-center">
+            <SparkMini />
           </div>
         </div>
 
@@ -106,8 +113,8 @@ export default function MarketingCards() {
                 <Badge text={item.change} />
                 <span className="text-[7px] text-gray-300">{item.label}</span>
               </div>
-              <div className="h-8 -mx-1.5 -mb-1.5">
-                <img src="/Graph.png" alt="graph" className="w-full h-full object-cover" />
+              <div className="h-8 -mx-1.5 -mb-1.5 flex items-center">
+                <SparkMini />
               </div>
             </div>
           ))}

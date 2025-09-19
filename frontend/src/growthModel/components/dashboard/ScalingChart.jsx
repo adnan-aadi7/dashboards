@@ -33,11 +33,11 @@ export default function ScalingChart() {
   ];
 
   return (
-    <div className="rounded-2xl border border-[#252B42] bg-[#0B1020] text-white w-[600px]  ">
+    <div className="rounded-2xl overflow-hidden border border-[#252B42] bg-[#0B1020] text-white w-full">
       {/* Top gradient bar */}
-      <div className="rounded-xl bg-gradient-to-r from-[#0A0A0A] via-[#8B5A2A] to-[#F0A64F] px-3 py-1.5 flex items-center justify-between">
-        <div className="text-xs tracking-wide">SCALING SPEED</div>
-        <div className="flex items-center gap-4 text-[10px]">
+      <div className="rounded-2xl bg-gradient-to-r from-[#0A0A0A] via-[#8B5A2A] to-[#F0A64F] px-3 py-1.5 flex items-center justify-between">
+        <div className="text-xs sm:text-sm tracking-wide">SCALING SPEED</div>
+        <div className="flex items-center gap-4 text-[10px] sm:text-xs overflow-x-auto whitespace-nowrap scrollbar-thin">
           {legends.map((l) => (
             <span key={l.id} className="flex items-center">
               <LegendDot color={l.color} />
@@ -48,24 +48,24 @@ export default function ScalingChart() {
       </div>
 
       {/* Chart area */}
-      <div className="mt-2 rounded-xl bg-[#0C132A] p-2" style={{ boxShadow: "inset 0 0 0 1px rgba(255,255,255,0.05)" }}>
-        <div className="relative h-[190px]">
+      <div className="bg-[#0C132A] p-2">
+        <div className="relative h-[150px] sm:h-[170px] md:h-[180px] lg:h-[189px]">
           {/* Y-axis labels */}
-          <div className="absolute left-0 top-1 bottom-4 flex flex-col justify-between text-[8px] text-gray-300 pl-2">
+          <div className="absolute left-0 top-1 bottom-4 flex flex-col justify-between text-[8px] sm:text-[9px] text-gray-300 pl-2">
             {yTicks.map((t) => (
               <span key={t}>{t}</span>
             ))}
           </div>
 
           {/* X-axis labels */}
-          <div className="absolute left-10 right-2 bottom-0.5 flex justify-between text-[8px] text-gray-400">
+          <div className="absolute left-8 sm:left-9 md:left-14 right-1  bottom-0.5 flex justify-between text-[8px] sm:text-[9px] text-gray-400">
             {months.map((m) => (
               <span key={m}>{m}</span>
             ))}
           </div>
 
           {/* Recharts stacked area chart, axes hidden to preserve layout */}
-          <div className="absolute inset-0 left-10 right-2 top-1 bottom-4 ">
+          <div className="absolute inset-0 left-8 sm:left-9 md:left-10 right-2 top-1 bottom-4 ">
             <ResponsiveContainer width="100%" height="100%">
               <AreaChart data={data} margin={{ top: 0, right: 0, left: 0, bottom: 0 }}>
                 <defs>

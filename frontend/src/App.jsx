@@ -9,6 +9,7 @@ import FinancialLayout from './FinancialDashbord/layout/Layout';
 import FinancialDashboard from './FinancialDashbord/pages/FinanencialDashboard';
 import InventmentDashboard from './InvestmentPotentialDashboard/pages/InventmentDashboard';
 import InvestementLayout from "./InvestmentPotentialDashboard/layout/Layout"
+import BusinessDashboard from './BusinessModel/pages/BusinessDashboard';
 
 
 
@@ -66,9 +67,20 @@ const App = () => {
         </InvestementLayout>
       }
       />
+
+      <Route
+        path="/businessmodel/dashboard"
+        element={
+          <GrowthModelLayout>
+            <BusinessDashboard />
+          </GrowthModelLayout>
+        }
+      />
+
+
+      
       </Routes>
 
-      routes
 
   </Router>
    

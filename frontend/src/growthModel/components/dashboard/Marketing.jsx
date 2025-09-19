@@ -1,7 +1,8 @@
 import React from "react";
+import { Sparklines, SparklinesLine } from 'react-sparklines';
 
 const SectionHeader = ({ title }) => (
-  <div className="w-full rounded-t-lg bg-gradient-to-r from-[#000000] to-[#ED5E23] text-white text-xs font-semibold tracking-widest px-3 py-2">
+  <div className="w-full rounded-t-lg bg-gradient-to-r from-[#000000] to-[#ED5E23] text-white text-xs font-semibold tracking-widest px-3 py-1">
     {title}
   </div>
 );
@@ -11,8 +12,14 @@ const StatCard = ({ title, value, note }) => (
     <div className="text-[10px] tracking-widest text-gray-300 mb-1">{title}</div>
     <div className="text-white text-xl font-semibold mb-1">{value}</div>
     <div className="text-[9px] text-gray-400 mb-2">{note}</div>
-    <div className="h-6 -mx-3 -mb-3">
-      <img src="/graphpink.png" alt="spark" className="w-full h-full object-cover" />
+    <div className="relative h-6 -mx-3 -mb-3 flex items-center">
+      {/* Glow strictly below: gradient anchored to bottom and behind the chart */}
+      <div className="absolute inset-x-0 bottom-0 h-full bg-gradient-to-b from-transparent via-[#DB2777]/18 to-transparent z-0 pointer-events-none" />
+      <div className="relative z-10 w-full h-full mt-2">
+        <Sparklines data={[5, 12, 8, 15, 7, 18, 6, 20, 5, 17, 9, 14]} limit={0} width={300} height={32} margin={4}>
+          <SparklinesLine color="#DB2777" style={{ strokeWidth: 3, fill: "none", filter: "drop-shadow(0 0 6px rgba(219,39,119,0.6))" }} />
+        </Sparklines>
+      </div>
     </div>
   </div>
 );
@@ -47,7 +54,7 @@ export default function Marketing() {
           <div className="grid grid-cols-2 gap-3">
             <StatCard title="NEW REVENUE GENERATED" value="$523,531" note="vs last 3 months" />
             <StatCard title="MARKETING EFFECIENCY RATIO" value="4.23" note="vs last 3 months" />
-            <StatCard title="COST PER LEAD" value="$142.12" note="vs last 3 months" />
+            <StatCard title="COST PER LEAD " value="$142.12" note="vs last 3 months" />
             <StatCard title="RETURN ON INVESTMENT" value="4.23" note="vs last 3 months" />
           </div>
         </SectionPanel>
@@ -56,7 +63,7 @@ export default function Marketing() {
       {/* Potential (no inner cards, fixed size) */}
       <div className="col-span-12 lg:col-span-4">
         <SectionPanel title="POTENTIAL">
-          <div className="rounded-lg  h-[230px]" />
+          <div className="rounded-lg  h-[280px]" />
         </SectionPanel>
       </div>
     </div>

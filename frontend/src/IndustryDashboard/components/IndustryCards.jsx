@@ -1,5 +1,4 @@
 import React from "react";
-import Gauge from "./Gauge";
 import { Sparklines, SparklinesLine } from "react-sparklines";
 
 // ✅ Sparkline Component
@@ -71,11 +70,7 @@ export default function Cards() {
         note="vs last 3 months"
       />
 
-      {/* Gauge Card */}
-      <div className="rounded-lg bg-[#090D28] border border-[#252B42] flex flex-col items-center justify-center  sm:p-4 h-40">
-        <Gauge value={10.8} min={0} max={20} />
-      </div>
-
+     
       <StatCard
         title="ANNUAL NET PROFIT"
         value="$7,345,273"

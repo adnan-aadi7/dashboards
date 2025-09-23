@@ -1,5 +1,9 @@
-import React from "react";
-import { Sparklines, SparklinesLine } from 'react-sparklines';
+import React, { useEffect, useRef, useState } from "react";
+import { SparkLineChart } from '@mui/x-charts/SparkLineChart';
+import { areaElementClasses, lineElementClasses } from '@mui/x-charts/LineChart';
+
+// Static dummy data for spark lines
+const sparkLineData = [120, 135, 110, 145, 130, 160, 140, 125, 155, 170, 150, 165];
 
 const SectionHeader = ({ title, gradient = true }) => (
   <div className={`${gradient ? "bg-gradient-to-r from-[#000000] to-[#ED5E23]" : "bg-transparent"} w-full rounded-t-lg text-white text-xl font-semibold tracking-widest px-3 py-2`}>
@@ -13,16 +17,51 @@ const Card = ({ children, className = "" }) => (
   </div>
 );
 
-const SummarySpark = () => (
-  <div className="h-16 w-full relative flex items-center">
-    <div className="absolute inset-x-0 bottom-0 h-full " />
-    <div className="relative z-10 w-full mt-10">
-      <Sparklines data={[5, 12, 8, 15, 7, 18, 6, 20, 5, 17, 9, 14]} limit={0} width={400} height={48} margin={4}>
-        <SparklinesLine color="#DB2777" style={{ strokeWidth: 3, fill: "none", filter: "drop-shadow(0 0 6px rgba(219,39,119,0.6))" }} />
-      </Sparklines>
+function useElementWidth() {
+  const ref = useRef(null);
+  const [width, setWidth] = useState(0);
+  useEffect(() => {
+    if (!ref.current) return;
+    const el = ref.current;
+    const update = () => setWidth(el.clientWidth || 0);
+    update();
+    const ro = new ResizeObserver(update);
+    ro.observe(el);
+    return () => ro.disconnect();
+  }, []);
+  return { ref, width };
+}
+
+const SummarySpark = () => {
+  const { ref, width } = useElementWidth();
+  const chartWidth = Math.max(200, width);
+  return (
+    <div className="w-full relative overflow-hidden rounded-b-lg flex flex-col h-9">
+      <div className="mt-auto">
+        <div ref={ref} className="w-full">
+          <SparkLineChart
+            data={sparkLineData}
+            height={48}
+            width={chartWidth}
+            area
+            color="#DB2777"
+            margin={{ top: 0, bottom: -6, left: -6, right: -3 }}
+            sx={{
+              [`& .${areaElementClasses.root}`]: { 
+                opacity: 0.2,
+                filter: 'drop-shadow(0 2px 4px rgba(219, 39, 119, 0.3))'
+              },
+              [`& .${lineElementClasses.root}`]: { 
+                strokeWidth: 3,
+                filter: 'drop-shadow(0 1px 2px rgba(219, 39, 119, 0.4))'
+              },
+            }}
+          />
+        </div>
+      </div>
     </div>
-  </div>
-);
+  );
+};
 
 const MetricPill = ({ label }) => (
   <div className="rounded-md border border-[#1E2437] bg-[#0A0F1F] text-[3px] text-gray-300 px-1 py-1">
@@ -73,7 +112,7 @@ export default function PotentialPerChannel() {
                 <span>VS LAST 3 MONTHS</span>
               </div>
             </div>
-            <div className="px-3 pb-3">
+            <div className=" mt-3">
               <SummarySpark />
             </div>
           </Card>
@@ -88,7 +127,7 @@ export default function PotentialPerChannel() {
                 <span>VS LAST 3 MONTHS</span>
               </div>
             </div>
-            <div className="px-3 pb-3">
+            <div className=" mt-3">
               <SummarySpark />
             </div>
           </Card>

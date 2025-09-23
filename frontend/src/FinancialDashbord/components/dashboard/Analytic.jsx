@@ -6,20 +6,20 @@ import LineChart from "./LineChart";
 import { Sparklines, SparklinesLine } from 'react-sparklines';
 const SectionHeader = ({ text, bg }) => (
   <div
-    className={`w-full rounded-t-lg text-white text-xs font-semibold tracking-widest px-3 py-2 ${bg}`}
+    className={`w-full bg-gradient-to-r from-[#000000] to-[#20A804] rounded-t-lg text-white text-xs font-semibold tracking-widest px-3 py-2 ${bg}`}
   >
     {text}
   </div>
 );
 const SparkMini = ({
-  data = [5, 20, 8, 30, 15, 40, 10, 35, 25, 45, 20, 50, 15, 55, 30],
+  data = [5, 20, 15, 30, 15, 40, 10, 35, 25, 45, 20, 50, 15, 55, 30],
 }) => (
   <Sparklines data={data} limit={0} width={260} height={36} margin={4}>
     <SparklinesLine color="#FF3B61" />
   </Sparklines>
 );
 const StatCard = ({ title, value, note, change, header }) => (
-  <div className="rounded-lg overflow-hidden border border-[#252B42] flex flex-col h-full min-h-[120px]">
+  <div className="rounded-lg  overflow-hidden border border-[#252B42] flex flex-col h-full min-h-[120px]">
     {/* Card Header (optional) */}
     {header && (
       <div
@@ -30,7 +30,7 @@ const StatCard = ({ title, value, note, change, header }) => (
     )}
 
     {/* Card Body */}
-    <div className="bg-gradient-to-b from-[#000000] to-[#090D28] p-2 sm:p-3 flex flex-col flex-1">
+    <div className="bg-[#181C3A] p-2 sm:p-3 flex flex-col flex-1">
       {!header && (
         <div className="text-[8px] sm:text-[10px] tracking-widest text-gray-300 mb-1 leading-tight line-clamp-2 min-h-[16px]">
           {title.length > 20 ? `${title.substring(0, 17)}...` : title}
@@ -61,7 +61,7 @@ const StatCard = ({ title, value, note, change, header }) => (
       </div>
 
       {/* Sparkline replace image */}
-      <div className="h-6 sm:h-8 -mx-2 sm:-mx-3 -mb-2 sm:-mb-3 mt-auto flex items-center">
+      <div className="h-6 sm:h-8 -mx-2 sm:-mx-5 -mb-2 sm:-mb-5 mt-auto flex items-center">
         <SparkMini />
       </div>
     </div>
@@ -77,7 +77,7 @@ const SectionPanel = ({ header, headerBg, children }) => (
 
 export default function Marketing() {
   return (
-    <div className="grid grid-cols-12 gap-4 text-white min-h-screen">
+    <div className="grid grid-cols-12  gap-4 text-white ">
       <div className="col-span-12 lg:col-span-4 flex">
         <SectionPanel header="PRODUCT RELATED COSTS GROSS REVENUE - cogs">
           {/* Stat Cards */}

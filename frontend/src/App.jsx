@@ -10,10 +10,9 @@ import FinancialDashboard from './FinancialDashbord/pages/FinanencialDashboard';
 import InventmentDashboard from './InvestmentPotentialDashboard/pages/InventmentDashboard';
 import InvestementLayout from "./InvestmentPotentialDashboard/layout/Layout"
 import BusinessDashboard from './BusinessModel/pages/BusinessDashboard';
-
-
-
-
+import SalesDashboard from './sales/pages/SalesDashboard';
+import IndustryLayout from './IndustryDashboard/layout/Layout';
+import IndustryDashboard from './IndustryDashboard/pages/IndustryDashboard';
 
 const App = () => {
   return (
@@ -30,7 +29,14 @@ const App = () => {
         </AfterSalesLayout>
       }
     />
-    
+    <Route
+      path="/industry/dashboard"
+      element={
+        <IndustryLayout>
+          <IndustryDashboard />
+        </IndustryLayout>
+      }
+    />
 
   {/* health care dashboard */}
   <Route
@@ -38,6 +44,15 @@ const App = () => {
       element={
         <AfterSalesLayout>
           <DashboardHealthCare />
+        </AfterSalesLayout>
+      }
+      />
+      {/* sales daboard */}
+      <Route
+      path="/sales/dashboard"
+      element={
+        <AfterSalesLayout>
+          <SalesDashboard />
         </AfterSalesLayout>
       }
       />
@@ -81,6 +96,7 @@ const App = () => {
       
       </Routes>
 
+      routes
 
   </Router>
    

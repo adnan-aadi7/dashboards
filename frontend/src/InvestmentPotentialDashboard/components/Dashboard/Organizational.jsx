@@ -1,5 +1,5 @@
 import React from 'react';
-import { ResponsiveContainer, PieChart, Pie, Cell } from 'recharts';
+import { ResponsiveContainer, PieChart, Pie, Cell, Tooltip } from 'recharts';
 import OrgChart from './OrgChart';
 import OrgPiechart from './OrgPiechart';
 
@@ -11,17 +11,17 @@ const RING_BG = '#F7F0E7';
 const SEPARATOR = '#1B2142';
 
 const sectors = [
-  { name: 'MANAGEMENT', color: '#E45757', depth: 8 },
-  { name: 'MARKETING', color: '#F4C04B', depth: 6 },
-  { name: 'SALES', color: '#7E9850', depth: 5 },
-  { name: 'DEVELOPMENT', color: '#B7CAE8', depth: 9 },
-  { name: 'RECRUITMENT', color: '#F6D777', depth: 6 },
-  { name: 'DELIVERY', color: '#D07A3C', depth: 7 },
-  { name: 'CUSTOMER SERVICE', color: '#B7CAE8', depth: 8 },
-  { name: 'AFTER SALES', color: '#E3CDBE', depth: 4 },
+  { name: 'MANAGEMENT', color: '#E45757', depth: 8, percentage: 36 },
+  { name: 'MARKETING', color: '#F4C04B', depth: 6, percentage: 36 },
+  { name: 'SALES', color: '#7E9850', depth: 5, percentage: 36 },
+  { name: 'DEVELOPMENT', color: '#B7CAE8', depth: 9, percentage: 36 },
+  { name: 'RECRUITMENT', color: '#F6D777', depth: 6, percentage: 36 },
+  { name: 'DELIVERY', color: '#D07A3C', depth: 7, percentage: 36 },
+  { name: 'CUSTOMER SERVICE', color: '#B7CAE8', depth: 8, percentage: 36 },
+  { name: 'AFTER SALES', color: '#E3CDBE', depth: 4, percentage: 36 },
 ];
 
-const departments = sectors.map(s => ({ name: s.name, value: SLICE_VALUE }));
+const departments = sectors.map(s => ({ name: s.name, value: SLICE_VALUE, percentage: s.percentage }));
 
 // Compact Department Card
 const DepartmentCard = ({ name, value, delta = '+2%' }) => (
@@ -36,22 +36,37 @@ const DepartmentCard = ({ name, value, delta = '+2%' }) => (
   </div>
 );
 
+// Custom Tooltip Renderer
+const CustomTooltip = ({ active, payload }) => {
+  if (active && payload && payload.length) {
+    const data = payload[0].payload;
+    return (
+      <div className="bg-[#252A51] border border-[#D9DFE6]/20 rounded-lg p-2 text-white text-[clamp(9px,2.5vw,10px)]">
+        <div className="font-semibold">{data.name}</div>
+        <div>Percentage: {data.percentage}%</div>
+      </div>
+    );
+  }
+  return null;
+};
+
 const Departments = () => {
   return (
-    <div className="text-white w-full max-w-[100vw] overflow-x-hidden ">
+    <div className="text-white w-full overflow-x-hidden">
       {/* Row: OrgChart | Multi-ring Pie + Cards | PieChartComponent */}
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-2 items-start">
         {/* Left: OrgChart */}
-        <div className=" p-2 flex items-center justify-center min-h-[12rem] sm:h-[14rem]">
+        <div className="rounded-xl p-2">
           <OrgChart />
         </div>
 
         {/* Middle: Multi-ring Pie + Cards */}
-        <div className="rounded-xl p-2 bg-[#252A51] flex flex-col sm:flex-row gap-2">
+        <div className="rounded-xl mt-2 h-[17rem] p-2 bg-[#252A51] flex flex-col sm:flex-row gap-2">
           {/* Chart */}
-          <div className="w-full sm:w-1/2 h-[12rem] sm:h-[14rem]">
+          <div className="w-full sm:w-1/2">
             <ResponsiveContainer width="100%" height="100%">
               <PieChart>
+                <Tooltip content={<CustomTooltip />} />
                 {[...Array(RINGS)].map((_, ringIndex) => {
                   const inner = ringIndex * RING_THICKNESS;
                   const outer = inner + RING_THICKNESS;
@@ -86,13 +101,13 @@ const Departments = () => {
           {/* Cards in 2x4 grid on desktop, 2x4 or 1x8 on mobile */}
           <div className="w-full sm:w-1/2 grid grid-cols-2 sm:grid-cols-2 gap-2 justify-center items-center">
             {sectors.map((dept) => (
-              <DepartmentCard key={dept.name} name={dept.name} value={36} />
+              <DepartmentCard key={dept.name} name={dept.name} value={dept.percentage} />
             ))}
           </div>
         </div>
 
         {/* Right: PieChartComponent */}
-        <div className=" p-2  flex items-center justify-center min-h-[12rem] sm:h-[14rem]">
+        <div className="rounded-xl p-2">
           <OrgPiechart />
         </div>
       </div>

@@ -5,32 +5,36 @@ import ScalingChart from "./ScallingChart";
 
 const SectionHeader = ({ text, bg }) => (
   <div
-    className={`w-full rounded-t-lg text-white text-xs font-semibold tracking-widest  py-2 ${bg}`}
+    className={`w-full rounded-t-lg text-white text-xs font-semibold tracking-widest py-1 ${bg}`}
   >
     {text}
   </div>
 );
 
-// ✅ Sparkline Component
-const SparkMini = ({ 
-  data = [5, 10, 5, 20, 60, 4, 6, 12, 25, 18, 40, 15] 
-}) => (
-  <Sparklines data={data} width={120} height={32} margin={2}>
+// ✅ Sparkline Component (Original with Green Color)
+const SparkMini = ({ data = [5, 15, 15, 10, 15, 4, 6, 12, 25, 10, 35, 5] }) => (
+  <Sparklines data={data} width={120} height={24}>
     <SparklinesLine color="#00D394" />
+  </Sparklines>
+);
+
+// ✅ Sparkline Component (Red for Financial Model and Other Cards, No Side Margin)
+const SparkMiniRed = ({
+  data = [5, 10, 5, 20, 30, 4, 6, 12, 25, 18, 40, 15],
+}) => (
+  <Sparklines data={data} width={120} height={28} margin={0}>
+    <SparklinesLine color="#FF3B61" />
   </Sparklines>
 );
 
 // Compact Stat Card
 const StatCard = ({ title, value, note, change, children }) => (
   <div className="rounded-md bg-gradient-to-b from-black to-slate-700 border border-[#252B42] p-1 flex flex-col items-center text-center min-h-[70px]">
-    {/* Title */}
-    <div className="text-[7px] font-medium tracking-wide text-gray-400 mb-0.5 mt-8">
+    <div className="text-[10px] font-medium tracking-wide text-gray-400 mb-0.5">
       {title}
     </div>
-
-    {/* Value + Change inline */}
     <div className="flex items-center justify-center gap-1 mb-0.5">
-      <span className="text-white text-sm sm:text-base font-semibold">
+      <span className="text-white text-md sm:text-base font-semibold">
         {value}
       </span>
       {change && (
@@ -45,15 +49,11 @@ const StatCard = ({ title, value, note, change, children }) => (
         </span>
       )}
     </div>
-
-    {/* Children */}
     {children && (
       <div className="w-full flex-1 flex items-center justify-center">
         {children}
       </div>
     )}
-
-    {/* Note */}
     {note && <span className="text-gray-500 text-[6px] mt-0.5">{note}</span>}
   </div>
 );
@@ -68,10 +68,9 @@ const SectionPanel = ({ header, headerBg, children }) => (
 export default function Cards() {
   return (
     <>
-      <div className="grid grid-cols-1 xl:grid-cols-4 gap-2 w-full h-full">
+      <div className="grid grid-cols-1 xl:grid-cols-4 px-2 py-2 gap-2 w-full h-full">
         {/* LEFT SECTION */}
         <div className="grid grid-rows-3 gap-2">
-          {/* Row 1 */}
           <div className="rounded-md bg-[linear-gradient(180deg,#000000_0%,#20A804_100%)] border border-[#252B42] p-1 flex flex-col items-center text-center min-h-[40px]">
             <div className="text-[10px] font-medium tracking-wide text-gray-400 mb-0.5 mt-10">
               TOTAL CONTRACT VALUE
@@ -80,14 +79,10 @@ export default function Cards() {
               $1.54M
             </div>
           </div>
-
-          {/* Row 2 */}
           <div className="grid grid-cols-2 gap-2">
             <StatCard title="TOTAL ACTIVE USERS" value="20" change="-3%" />
             <StatCard title="RENEWAL" value="100%" change="+8%" />
           </div>
-
-          {/* Row 3 */}
           <div className="grid grid-cols-2 gap-2">
             <StatCard title="CHURN" value="2.4%" change="+6%" />
             <StatCard title="NET PROMOTER SCORE" value="7.8" change="-1%" />
@@ -101,17 +96,16 @@ export default function Cards() {
             value="$97,041.60"
             change="+6%"
           >
-            <div className="h-10 w-full flex mt-18 items-center justify-center">
+            <div className="mt-auto w-full flex items-end justify-center h-6 -mb-3">
               <SparkMini />
             </div>
           </StatCard>
-
           <StatCard
             title="AVERAGE MONTHLY CUSTOMER REVENUE"
             value="$3,516.67"
             change="+12%"
           >
-            <div className="h-10 w-full mt-18 flex items-center justify-center">
+            <div className="mt-auto w-full flex items-end justify-center h-6 -mb-3">
               <SparkMini />
             </div>
           </StatCard>
@@ -126,30 +120,28 @@ export default function Cards() {
               padding: "8px 12px",
               borderRadius: "8px",
               textAlign: "center",
-              fontSize: "clamp(10px, 1vw, 10px)", // responsive text
+              fontSize: "clamp(10px, 1vw, 10px)",
               fontWeight: "500",
             }}
           >
             SPECIFIC MONTHLY CUSTOMER REVENUE STREAMS
           </div>
-
           <StatCard
             title="AVERAGE MONTHLY CUSTOMER SAAS FEE"
             value="$1,250"
             change="+20%"
           >
-            <div className="h-12 w-full flex items-center justify-center">
+            <div className="mt-auto w-full flex items-end justify-center h-6 -mb-3">
               <SparkMini />
             </div>
           </StatCard>
-
           <div className="grid grid-cols-2 gap-2">
             <StatCard
               title="% OF PAYMENT WITH CARD PRESENT"
               value="30%"
               change="+12%"
             >
-              <div className="h-10 w-full flex items-center justify-center">
+              <div className="mt-auto w-full flex items-end justify-center h-6 -mb-2">
                 <SparkMini />
               </div>
             </StatCard>
@@ -158,19 +150,18 @@ export default function Cards() {
               value="$400"
               change="-5%"
             >
-              <div className="h-10 w-full flex items-center justify-center">
+              <div className="mt-auto w-full flex items-end justify-center h-6 -mb-2">
                 <SparkMini />
               </div>
             </StatCard>
           </div>
-
           <div className="grid grid-cols-2 gap-2">
             <StatCard
               title="% OF PAYMENT WITHOUT CARD PRESENT"
               value="70%"
               change="+8%"
             >
-              <div className="h-10 w-full flex items-center justify-center">
+              <div className="mt-auto w-full flex items-end justify-center h-6 -mb-2">
                 <SparkMini />
               </div>
             </StatCard>
@@ -179,7 +170,7 @@ export default function Cards() {
               value="$1,866.67"
               change="+3%"
             >
-              <div className="h-10 w-full flex items-center justify-center">
+              <div className="mt-auto w-full flex items-end justify-center h-4 -mb-2">
                 <SparkMini />
               </div>
             </StatCard>
@@ -188,19 +179,26 @@ export default function Cards() {
 
         {/* PIE CHARTS */}
         <div className="grid grid-cols-1 sm:grid-cols-3 gap-2 bg-[#252A51] rounded-lg">
-          <StatCard title={<span className="text-white text-sm">REVENUE</span>} value="">
+          <StatCard
+            title={<span className="text-white text-sm">REVENUE</span>}
+            value=""
+          >
             <div className="h-24 w-full">
               <PieChartComponent />
             </div>
           </StatCard>
-
-          <StatCard title={<span className="text-white text-sm">COSTS</span>} value="">
+          <StatCard
+            title={<span className="text-white text-sm">COSTS</span>}
+            value=""
+          >
             <div className="h-24 w-full">
               <PieChartComponent />
             </div>
           </StatCard>
-
-          <StatCard title={<span className="text-white text-sm">PROFIT</span>} value="">
+          <StatCard
+            title={<span className="text-white text-sm">PROFIT</span>}
+            value=""
+          >
             <div className="h-24 w-full">
               <PieChartComponent />
             </div>
@@ -209,56 +207,88 @@ export default function Cards() {
       </div>
 
       {/* FINANCIAL MODEL */}
-      <div className="flex bg-gradient-to-r from-[#000000] to-[#20A804] mt-5 rounded-xl text-white text-xl p-2">
+      <div className="flex w-full bg-gradient-to-r from-[#000000] to-[#20A804] mt-5  rounded-xl text-white text-xl p-2">
         <h3>FINANCIAL MODEL</h3>
       </div>
-      <div className="grid grid-cols-12 gap-4">
+      <div className="grid grid-cols-12 px-2 gap-4 items-stretch">
         {/* Left Column: Chart */}
-        <div className="col-span-12 lg:col-span-6 flex">
-          <div className="flex-1">
-            <ScalingChart className="h-full" />
+        <div className="col-span-12 md:col-span-12 lg:col-span-6 flex">
+          <div className="flex-1 h-full">
+            <ScalingChart className="h-full w-full" />
           </div>
         </div>
 
         {/* Right Column: Stats Card */}
-        <div className="col-span-12 lg:col-span-6 flex">
-          <SectionPanel>
+        <div className="col-span-12 md:col-span-12 lg:col-span-6 flex">
+          <SectionPanel className="h-full h- w-full">
             {/* First Row */}
-            <div className="grid grid-cols-3 md:grid-cols-5 lg:grid-cols-5 gap-2 text-center w-full">
+            <div className="grid grid-cols-3 md:grid-cols-5 lg:grid-cols-5 gap-2 w-full">
               {[
-                { title: "REVENUE", value: "€5,172,595", change: "+8%", note: "vs last 3 months" },
-                { title: "GROSS PROFIT MARGIN", value: "80%", change: "-3%", note: "vs last 3 months" },
-                { title: "EBITA", value: "$2,002.095", change: "+6%", note: "vs last 3 months" },
-                { title: "EARNINGS AFTER TAXES", value: "$12,172.595", change: "-12%", note: "vs last 3 months" },
-                { title: "EARNINGS AFTER TAXES", value: "$2,002.095", change: "-12%", note: "vs last 3 months" },
+                { title: "REVENUE", value: "€5,172,595", change: "+8%" },
+                { title: "GROSS PROFIT MARGIN", value: "80%", change: "-3%" },
+                { title: "EBITA", value: "$2,002.095", change: "+6%" },
+                {
+                  title: "EARNINGS AFTER TAXES",
+                  value: "$12,172.595",
+                  change: "-12%",
+                },
+                {
+                  title: "EARNINGS AFTER TAXES",
+                  value: "$2,002.095",
+                  change: "-12%",
+                },
               ].map((card, index) => (
-                <StatCard key={index} {...card} className="h-24 w-full text-xs" />
+                <StatCard key={index} {...card} className="h-24 w-full text-xs">
+                  <div className="mt-auto w-full flex items-end justify-center h-6 -mb-1">
+                    <SparkMiniRed />
+                  </div>
+                </StatCard>
               ))}
             </div>
 
             {/* Second Row */}
             <div className="grid grid-cols-3 md:grid-cols-5 lg:grid-cols-5 gap-2 text-center w-full mt-2">
               {[
-                { title: "COSTS OF GOODS SOLD", value: "$1,895.345", change: "-3%", note: "vs last 3 months" },
-                { title: "OPERATIONAL COSTS", value: "$3,192.969", change: "-6%", note: "vs last 3 months" },
-                { title: "TAXES", value: "$2,002.095", change: "-8%", note: "vs last 3 months" },
-                { title: "NET PROFIT", value: "$2,002.095", change: "-3%", note: "vs last 3 months" },
-                { title: "NET CASH POSITION (BANK)", value: "$10,172.595", change: "-6%", note: "vs last 3 months" },
+                {
+                  title: "COSTS OF GOODS SOLD",
+                  value: "$1,895.345",
+                  change: "-3%",
+                },
+                {
+                  title: "OPERATIONAL COSTS",
+                  value: "$3,192.969",
+                  change: "-6%",
+                },
+                { title: "TAXES", value: "$2,002.095", change: "-8%" },
+                { title: "NET PROFIT", value: "$2,002.095", change: "-3%" },
+                {
+                  title: "NET CASH POSITION (BANK)",
+                  value: "$10,172.595",
+                  change: "-6%",
+                },
               ].map((card, index) => (
-                <StatCard key={index} {...card} className="h-24 w-full text-xs" />
+                <StatCard key={index} {...card} className="h-24 w-full text-xs">
+                  <div className="mt-auto w-full flex items-end justify-center h-6 -mb-1">
+                    <SparkMiniRed />
+                  </div>
+                </StatCard>
               ))}
             </div>
 
             {/* Third Row */}
             <div className="grid grid-cols-3 md:grid-cols-5 lg:grid-cols-5 gap-2 text-center w-full mt-2">
               {[
-                { title: "GROSS PROFIT", value: "$3,996.901", change: "-3%", note: "vs last 3 months" },
-                { title: "OPERATIONAL MARGIN", value: "27%", change: "-6%", note: "vs last 3 months" },
-                { title: "MARKETING FTE", value: "€5,172,595", change: "+8%", note: "vs last 3 months" },
-                { title: "TAXES", value: "$2,002.095", change: "-3%", note: "vs last 3 months" },
-                { title: "NET PROFIT MARGIN", value: "12.6%", change: "+6%", note: "vs last 3 months" },
+                { title: "GROSS PROFIT", value: "$3,996.901", change: "-3%" },
+                { title: "OPERATIONAL MARGIN", value: "27%", change: "-6%" },
+                { title: "MARKETING FTE", value: "€5,172,595", change: "+8%" },
+                { title: "TAXES", value: "$2,002.095", change: "-3%" },
+                { title: "NET PROFIT MARGIN", value: "12.6%", change: "+6%" },
               ].map((card, index) => (
-                <StatCard key={index} {...card} className="h-24 w-full text-xs" />
+                <StatCard key={index} {...card} className="h-24 w-full text-xs">
+                  <div className="mt-auto w-full flex items-end justify-center h-6 -mb-1">
+                    <SparkMiniRed />
+                  </div>
+                </StatCard>
               ))}
             </div>
           </SectionPanel>

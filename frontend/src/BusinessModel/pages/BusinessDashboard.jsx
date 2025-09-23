@@ -14,7 +14,7 @@ import Fte from '../components/Fte'
 const BusinessDashboard = () => {
   return (
     <>
-     <div className='flex bg-gradient-to-r from-[#000000] to-[#22D3EE] text-white text-xl p-2 -mt-5'>
+     <div className='flex bg-gradient-to-r from-[#000000] to-[#22D3EE] text-white text-xl p-5 -mt-4 -ml-5 lg:px-5 lg:py-3 '>
   <h3>BUSINESS MODEL</h3>
 </div>
 <div className='mt-5'>

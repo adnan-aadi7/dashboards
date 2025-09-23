@@ -1,4 +1,9 @@
-import React from 'react';
+import React, { useEffect, useRef, useState } from 'react';
+import { SparkLineChart } from '@mui/x-charts/SparkLineChart';
+import { areaElementClasses, lineElementClasses } from '@mui/x-charts/LineChart';
+
+// Static dummy data for spark lines
+const sparkLineData = [120, 135, 110, 145, 130, 160, 140, 125, 155, 170, 150, 165];
 
 // Sample data array for the cards
 const cardData = [
@@ -131,19 +136,87 @@ const cardData = [
   }
 ];
 
-// Small area chart component (uses public/Vector.png like Marketing.jsx)
-const MiniChart = ({ height = 'h-4' }) => (
-  <div className={`w-full ${height}  -mb-3`}>
-    <img src="/Graph.png" alt="spark" className="w-full h-full object-fill" />
-  </div>
-);
+// Measure width helper for responsive spark lines
+function useElementWidth() {
+  const ref = useRef(null);
+  const [width, setWidth] = useState(0);
+  useEffect(() => {
+    if (!ref.current) return;
+    const el = ref.current;
+    const update = () => setWidth(el.clientWidth || 0);
+    update();
+    const ro = new ResizeObserver(update);
+    ro.observe(el);
+    return () => ro.disconnect();
+  }, []);
+  return { ref, width };
+}
+
+// Small area chart component using SparkLineChart
+const MiniChart = ({ height = 'h-4' }) => {
+  const { ref, width } = useElementWidth();
+  const chartHeight = height === 'h-3' ? 16 : height === 'h-2' ? 20 : 32;
+  const bleed = 24; // account for -mx-3
+  const chartWidth = Math.max(140, width + bleed);
+  
+  return (
+    <div className={`w-full ${height} -mb-3 -mx-3`}>
+      <div ref={ref} className="w-full h-full">
+        <SparkLineChart
+          data={sparkLineData}
+          height={chartHeight}
+          width={chartWidth}
+          area
+          color="#00D394"
+          margin={{ top: 0, bottom: 0, left: -6, right: -3 }}
+          sx={{
+            [`& .${areaElementClasses.root}`]: { 
+              opacity: 0.2,
+              filter: 'drop-shadow(0 2px 4px rgba(0, 211, 148, 0.3))'
+            },
+            [`& .${lineElementClasses.root}`]: { 
+              strokeWidth: 2,
+              filter: 'drop-shadow(0 1px 2px rgba(0, 211, 148, 0.4))'
+            },
+          }}
+        />
+      </div>
+    </div>
+  );
+};
 
 // Large variant used for big top cards
-const LargeChart = ({ height = 'h-4' }) => (
-  <div className={`w-full ${height}  -mb-8`}>
-    <img src="/Graph.png" alt="spark" className="w-full h-6 object-fill" />
-  </div>
-);
+const LargeChart = ({ height = 'h-4' }) => {
+  const { ref, width } = useElementWidth();
+  const chartHeight = height === 'h-12' ? 48 : height === 'h-16' ? 64 : 24;
+  const bleed = 24; // account for -mx-3
+  const chartWidth = Math.max(200, width + bleed);
+  
+  return (
+    <div className={`w-full ${height} -mb-8 -mx-3`}>
+      <div ref={ref} className="w-full h-full">
+        <SparkLineChart
+          data={sparkLineData}
+          height={chartHeight}
+          width={chartWidth}
+          area
+          color="#00D394"
+          margin={{ top: 0, bottom: 0, left: -6, right: -3 }}
+          sx={{
+            [`& .${areaElementClasses.root}`]: { 
+              opacity: 0.2,
+              filter: 'drop-shadow(0 2px 4px rgba(0, 211, 148, 0.3))'
+            },
+            [`& .${lineElementClasses.root}`]: { 
+              strokeWidth: 3,
+              filter: 'drop-shadow(0 1px 2px rgba(0, 211, 148, 0.4))'
+            },
+          }}
+        />
+      </div>
+    </div>
+  );
+};
 
 // Individual card component
 const Card = ({ card, compact = false, tall = false }) => (

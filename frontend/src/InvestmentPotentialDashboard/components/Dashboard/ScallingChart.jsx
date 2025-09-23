@@ -30,7 +30,7 @@ export default function ScalingChart() {
     <div className="rounded-2xl text-white w-full h-full">
       {/* Chart area */}
       <div
-        className="mt-4 rounded-xl bg-[#000000] p-2 h-[290px]"
+        className="mt-2 rounded-xl bg-[#000000] p-2 h-[290px]"
         style={{ boxShadow: "inset 0 0 0 1px rgba(255,255,255,0.05)" }}
       >
         <div className="relative w-full h-full">

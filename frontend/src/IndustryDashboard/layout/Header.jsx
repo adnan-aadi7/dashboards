@@ -1,20 +1,7 @@
 import React from "react";
 import { ArrowLeft, Search, Menu } from "lucide-react";
-import { useLocation } from "react-router-dom";
 
 const Header = ({ onHamburgerClick }) => {
-  const location = useLocation();
-
-  // Agar route /sales/dashboard hai to "Sales Dashboard" show karega
-  const headerTitle =
-    location.pathname === "/sales/dashboard"
-      ? "Sales Dashboard"
-      : "ZORG EXIT + AFTERSALES";
-
-
-
-
-
   return (
     <header className="text-white   py-4 flex items-center justify-between  bg-[#0B1020]">
       {/* Left: Back button (static) */}
@@ -37,7 +24,7 @@ const Header = ({ onHamburgerClick }) => {
           <span className="text-sm">Back</span>
         </button>
       </div>
-      <div className="flex ml-15 text-base lg:text-lg">{headerTitle} </div>
+      <div className="flex ml-15 text-base lg:text-lg">FUNDING DASHBOARD </div>
 
       {/* Center: Search bar */}
       <div className="flex-1 flex justify-end px-3 mr-7">

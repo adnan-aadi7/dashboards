@@ -1,14 +1,12 @@
 import React from 'react'
-import Cards from '../components/dashboard/Cards'
-import Analytics from "../components/dashboard/Analytic"
+import Cards from "../components/IndustryCards"
 
-const FinanencialDashboard = () => {
+
+const IndustryDashboard = () => {
   return (
    <>
     {/* Header */}
-    <div className='flex bg-gradient-to-r from-[#000000] to-[#20A804]  text-white text-xl  p-2'>
-      <h3>FINANCIAL MODEL</h3>
-    </div>
+   
 
     {/* Main Section */}
     <div className='bg-[#181C3A] w-full'>
@@ -21,7 +19,6 @@ const FinanencialDashboard = () => {
 
           {/* Analytics full width but inside 3 cards */}
           <div className='col-span-12 pb-5 px-5'>
-            <Analytics />
           </div>
         </div>
       </div>
@@ -30,4 +27,4 @@ const FinanencialDashboard = () => {
   )
 }
 
-export default FinanencialDashboard
+export default IndustryDashboard

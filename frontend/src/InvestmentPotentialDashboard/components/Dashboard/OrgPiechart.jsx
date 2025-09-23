@@ -1,5 +1,5 @@
 import React from 'react';
-import { ResponsiveContainer, PieChart, Pie, Cell } from 'recharts';
+import { ResponsiveContainer, PieChart, Pie, Cell, Tooltip } from 'recharts';
 import Card from '@mui/material/Card';
 import CardContent from '@mui/material/CardContent';
 
@@ -21,6 +21,20 @@ const LegendItem = ({ label, value, color }) => (
   </div>
 );
 
+// Custom Tooltip Renderer
+const CustomTooltip = ({ active, payload }) => {
+  if (active && payload && payload.length) {
+    const data = payload[0].payload;
+    return (
+      <div className="bg-[#252A51] border border-[#D9DFE6]/20 rounded-lg p-2 text-white text-[clamp(10px,2.5vw,11px)]">
+        <div className="font-semibold">{data.name}</div>
+        <div>FTE: {data.value}</div>
+      </div>
+    );
+  }
+  return null;
+};
+
 const Fte = () => {
   const data = [
     { name: 'MARKETING', value: 2 },
@@ -33,7 +47,7 @@ const Fte = () => {
     <div className="text-white">
       <Card elevation={0} sx={{ backgroundColor: '#252A51', borderRadius: '12px' }}>
         <CardContent sx={{ p: '1rem !important' }}>
-          <div className="mb-3 px-1">
+          <div className="mb-7 px-1">
             <Header title="FTE AND EMPLOYEMENT" />
           </div>
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-3 items-center">
@@ -41,6 +55,7 @@ const Fte = () => {
             <div className="h-[10rem] sm:h-[12rem]">
               <ResponsiveContainer width="100%" height="100%">
                 <PieChart>
+                  <Tooltip content={<CustomTooltip />} />
                   <Pie
                     data={data}
                     dataKey="value"

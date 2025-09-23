@@ -59,7 +59,7 @@ const StatCard = ({ title, value, note, change, header }) => (
       </div>
 
       {/* Sparkline replace image */}
-      <div className="h-6 sm:h-8 -mx-2 sm:-mx-3 -mb-2 sm:-mb-3 mt-auto flex items-center">
+      <div className="h-6  -mx-2 sm:-mx-5 -mb-4  mt-auto flex items-center">
         <SparkMini />
       </div>
     </div>
@@ -75,17 +75,17 @@ const SectionPanel = ({ header, headerBg, children }) => (
 
 export default function Marketing() {
   return (
-    <div className="grid grid-cols-12 gap-4 text-white ">
+    <div className="grid grid-cols-12 px-2 py-2 gap-4 text-white items-stretch">
       {/* MARKETING */}
-      <div className="col-span-12 lg:col-span-4 flex">
+      <div className="col-span-12 lg:col-span-4 h-full">
         <SectionPanel
           header="MARKETING"
           headerBg="bg-gradient-to-r from-black to-[#FFCC8B]"
         >
           {/* Row 1: Activity / Efficiency / Potential */}
-          <div className="grid grid-cols-3 gap-2 items-stretch text-center mb-2">
+          <div className="grid grid-cols-3 gap-2  items-stretch text-center mb-2">
             {/* Activity */}
-            <div className="flex flex-col">
+            <div className="flex flex-col h-full">
               <div className="text-[10px] sm:text-xs font-semibold tracking-widest text-gray-300 mb-1">
                 ACTIVITY
               </div>
@@ -98,7 +98,7 @@ export default function Marketing() {
             </div>
 
             {/* Efficiency */}
-            <div className="flex flex-col">
+            <div className="flex flex-col h-full">
               <div className="text-[10px] sm:text-xs font-semibold tracking-widest text-gray-300 mb-1">
                 EFFICIENCY
               </div>
@@ -111,7 +111,7 @@ export default function Marketing() {
             </div>
 
             {/* Potential */}
-            <div className="flex flex-col">
+            <div className="flex flex-col h-full">
               <div className="text-[10px] sm:text-xs font-semibold tracking-widest text-gray-300 mb-1">
                 POTENTIAL
               </div>
@@ -149,15 +149,14 @@ export default function Marketing() {
       </div>
 
       {/* SALES */}
-      <div className="col-span-12 lg:col-span-4 flex">
+      <div className="col-span-12 lg:col-span-4 h-full">
         <SectionPanel
           header="SALES"
           headerBg="bg-gradient-to-r from-black to-[#FFCC8B]"
         >
-          {/* Sub Heading + Cards */}
           <div className="grid grid-cols-3 gap-2 mb-2 items-stretch text-center">
             {/* Activity */}
-            <div className="flex flex-col">
+            <div className="flex flex-col h-full">
               <div className="text-[10px] sm:text-xs font-semibold tracking-widest text-white mb-1">
                 ACTIVITY
               </div>
@@ -170,18 +169,17 @@ export default function Marketing() {
             </div>
 
             {/* Efficiency */}
-            <div className="flex flex-col">
+            <div className="flex flex-col h-full">
               <div className="text-[10px] sm:text-xs font-semibold tracking-widest text-white mb-1">
                 EFFICIENCY
               </div>
-              {/* Gauge container with same height as StatCard */}
-              <div className="rounded-lg overflow-hidden border border-[#252B42] bg-[#090D28] flex items-center justify-center p-3 min-h-[120px]">
+              <div className="rounded-lg overflow-hidden border border-[#252B42] bg-[#090D28] flex items-center justify-center p-3 min-h-[120px] flex-1">
                 <Gauge value={10.8} min={0} max={20} />
               </div>
             </div>
 
             {/* Potential */}
-            <div className="flex flex-col">
+            <div className="flex flex-col h-full">
               <div className="text-[10px] sm:text-xs font-semibold tracking-widest text-white mb-1">
                 POTENTIAL
               </div>
@@ -195,7 +193,6 @@ export default function Marketing() {
           </div>
 
           <div className="grid grid-cols-3 gap-2 items-stretch">
-            {/* ---- Bottom 3 cards ---- */}
             <StatCard
               title="SALES FTE"
               value="€3,192,969"
@@ -219,7 +216,7 @@ export default function Marketing() {
       </div>
 
       {/* SCALING */}
-      <div className="col-span-12 lg:col-span-4 flex">
+      <div className="col-span-12 lg:col-span-4 h-full">
         <SectionPanel
           header="SCALING"
           headerBg="bg-gradient-to-r from-[#000000] to-[#FFFFFF]"
@@ -244,8 +241,7 @@ export default function Marketing() {
               note="vs last 3 months"
             />
 
-            {/* Gauge full width (3 columns) */}
-            <div className="col-span-3 rounded-lg overflow-hidden border border-[#252B42] bg-[#090D28] flex items-center justify-center p-3 min-h-[150px]">
+            <div className="col-span-3 rounded-lg overflow-hidden border border-[#252B42] bg-[#090D28] flex items-center justify-center p-3 min-h-[150px] flex-1">
               <Gauge value={10.8} min={0} max={20} />
             </div>
           </div>

@@ -6,7 +6,7 @@ export default function Gauge({ value = 10.8, min = 0, max = 20 }) {
 
   const cx = 100;
   const cy = 100;
-  const radius = 70;
+  const radius = 85; // aur bada radius
 
   const polarToCartesian = (centerX, centerY, r, angleInDegrees) => {
     const angleInRadians = ((angleInDegrees - 90) * Math.PI) / 180.0;
@@ -36,19 +36,19 @@ export default function Gauge({ value = 10.8, min = 0, max = 20 }) {
     ].join(" ");
   };
 
-  const startAngle = 240;  // thoda aur upar se shuru karo
-const endAngle = 480;    // thoda aur neeche tak lao
+  const startAngle = 240;
+  const endAngle = 480;
   const angleSpan = endAngle - startAngle;
   const currentAngle = startAngle + angleSpan * percent;
 
   return (
-    <div className="relative flex items-center justify-center w-[120px] h-[90px]">
-      <svg viewBox="0 0 200 140" className="w-[120px] h-[90px]">
+    <div className="relative flex items-center justify-center w-[150px] h-[110px]">
+      <svg viewBox="0 0 200 140" className="w-[150px] h-[110px]">
         {/* Background arc */}
         <path
           d={describeArc(cx, cy, radius, startAngle, endAngle)}
           stroke="#1F2937"
-          strokeWidth="14"
+          strokeWidth="22"   // aur mota stroke
           fill="none"
           strokeLinecap="round"
         />
@@ -56,7 +56,7 @@ const endAngle = 480;    // thoda aur neeche tak lao
         <path
           d={describeArc(cx, cy, radius, startAngle, currentAngle)}
           stroke="#F2B46D"
-          strokeWidth="14"
+          strokeWidth="22"
           fill="none"
           strokeLinecap="round"
         />
@@ -64,16 +64,16 @@ const endAngle = 480;    // thoda aur neeche tak lao
         <path
           d={describeArc(cx, cy, radius, currentAngle, endAngle)}
           stroke="#9CA3AF33"
-          strokeWidth="14"
+          strokeWidth="22"
           fill="none"
           strokeLinecap="round"
         />
       </svg>
 
       {/* Center Text */}
-      <div className="absolute text-center mt-3">
+      <div className="absolute text-center mt-5">
         <div className="text-white text-lg font-bold leading-none">{value}</div>
-        <div className="text-[5px] tracking-widest text-gray-400 mt-1">
+        <div className="text-[10px] tracking-widest text-gray-400 mt-1">
           MONTHS RUNWAY
         </div>
       </div>

@@ -1,5 +1,5 @@
 import React from "react";
-import { ResponsiveContainer, AreaChart, Area } from "recharts";
+import { ResponsiveContainer, AreaChart, Area, Tooltip } from "recharts";
 
 const LegendDot = ({ color }) => (
   <span className="inline-block w-2.5 h-2.5 rounded-full mr-2" style={{ backgroundColor: color }} />
@@ -85,6 +85,12 @@ export default function ScalingChart() {
                 <Area type="monotone" dataKey="blue" stroke="none" fill="url(#areaBlue)" stackId="1" />
                 <Area type="monotone" dataKey="green" stroke="none" fill="url(#areaGreen)" stackId="1" />
                 <Area type="monotone" dataKey="pink" stroke="none" fill="url(#areaPink)" stackId="1" />
+                <Tooltip
+                  contentStyle={{ background: "#0B1020", border: "1px solid #252B42", borderRadius: 8, color: "#fff", padding: "6px 8px" }}
+                  labelFormatter={(label) => `Month: ${label}`}
+                  formatter={(value, name) => [value, name.toUpperCase()]}
+                  cursor={{ stroke: "#F0A650", strokeDasharray: "3 3", strokeOpacity: 0.4 }}
+                />
               </AreaChart>
             </ResponsiveContainer>
           </div>

@@ -14,15 +14,17 @@ const SectionHeader = ({ text, bg }) => (
 const SparkMini = ({
   data = [5, 20, 15, 30, 15, 40, 10, 35, 25, 45, 20, 50, 15, 55, 30],
 }) => (
- <Sparklines data={data} limit={0} width={260} height={36} margin={4}>
-  <defs>
-    <linearGradient id="sparklineGradient" x1="0" y1="0" x2="0" y2="1">
-      <stop offset="0%" stopColor="#9333EA" />
-      <stop offset="100%" stopColor="rgba(254,253,255,0)" />
-    </linearGradient>
-  </defs>
-  <SparklinesLine style={{ stroke: "url(#sparklineGradient)", strokeWidth: 2 }} />
-</Sparklines>
+  <Sparklines data={data} limit={0} width={260} height={36} margin={4}>
+    <defs>
+      <linearGradient id="sparklineGradient" x1="0" y1="0" x2="0" y2="1">
+        <stop offset="0%" stopColor="#9333EA" />
+        <stop offset="100%" stopColor="rgba(254,253,255,0)" />
+      </linearGradient>
+    </defs>
+    <SparklinesLine
+      style={{ stroke: "url(#sparklineGradient)", strokeWidth: 2 }}
+    />
+  </Sparklines>
 );
 const StatCard = ({ title, value, note, change, header }) => (
   <div className="rounded-lg  overflow-hidden border border-[#252B42] flex flex-col h-full min-h-[120px]">
@@ -184,79 +186,90 @@ export default function Marketing() {
                 </div>
               </div>
 
-              <table className="w-full text-xs sm:text-sm text-gray-300">
-                <thead className=" text-gray-100 text-[10px] sm:text-xs uppercase">
-                  <tr>
-                    <th className="px-2 sm:px-3 py-2 border-r border-[#2A2C3D] text-left">
-                      REVENUE
-                    </th>
-                    <th className="px-2 sm:px-3 py-2 border-r border-[#2A2C3D] text-right">
-                      COGS
-                    </th>
-                    <th className="px-2 sm:px-3 py-2 border-r border-[#2A2C3D] text-right">
-                      OVERHEAD
-                    </th>
-                    <th className="px-2 sm:px-3 py-2 border-r border-[#2A2C3D] text-right">
-                      NET PROFIT
-                    </th>
-                    <th className="px-2 sm:px-3 py-2 border-r border-[#2A2C3D] text-right">
-                      SELLER
-                    </th>
-                    <th className="px-2 sm:px-3 py-2 border-r border-[#2A2C3D] text-right"></th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <tr className="bg-[#252A51]">
-                    <td className="px-2 sm:px-3 py-2">Project A</td>
-                    <td className="px-2 sm:px-3 py-2 text-right"></td>
-                    <td className="px-2 sm:px-3 py-2 text-right text-[#00D394]"></td>
-                    <td className="px-2 sm:px-3 py-2 text-right text-[#00D394]"></td>
-                    <td className="px-2 sm:px-3 py-2 text-right text-[#00D394]"></td>
-                    <td className="px-2 sm:px-3 py-2 text-right text-[#00D394] whitespace-nowrap">
-                      <div className="flex justify-end items-center gap-1">
-                        <span>€1,034,516</span>
-                        <span className="text-xs font-medium">+20%</span>
-                      </div>
-                    </td>
-                  </tr>
-                  <tr>
-                    <td className="px-2 sm:px-3 py-2">Project B</td>
-                  </tr>
-                  <tr className="bg-[#252A51]">
-                    <td className="px-2 sm:px-3 py-2">Project C</td>
-                    <td className="px-2 sm:px-3 py-2 text-right"></td>
-                    <td className="px-2 sm:px-3 py-2 text-right"></td>
-                    <td className="px-2 sm:px-3 py-2 text-right"></td>
-                    <td className="px-2 sm:px-3 py-2 text-right"></td>
-                    <td className="px-2 sm:px-3 py-2 text-right"></td>
-                  </tr>
-                  <tr>
-                    <td className="px-2 sm:px-3 py-2">Project D</td>
-                  </tr>
-                  <tr className="bg-[#252A51]">
-                    <td className="px-2 sm:px-3 py-2">Project E</td>
-                    <td className="px-2 sm:px-3 py-2 text-right"></td>
-                    <td className="px-2 sm:px-3 py-2 text-right"></td>
-                    <td className="px-2 sm:px-3 py-2 text-right"></td>
-                    <td className="px-2 sm:px-3 py-2 text-right"></td>
-                    <td className="px-2 sm:px-3 py-2 text-right"></td>
-                  </tr>
-                  <tr>
-                    <td className="px-2 sm:px-3 py-2">Project F</td>
-                  </tr>
-                  <tr className="bg-[#252A51]">
-                    <td className="px-2 sm:px-3 py-2">Project G</td>
-                    <td className="px-2 sm:px-3 py-2 text-right"></td>
-                    <td className="px-2 sm:px-3 py-2 text-right"></td>
-                    <td className="px-2 sm:px-3 py-2 text-right"></td>
-                    <td className="px-2 sm:px-3 py-2 text-right"></td>
-                    <td className="px-2 sm:px-3 py-2 text-right"></td>
-                  </tr>
-                  <tr>
-                    <td className="px-2 sm:px-3 py-2">Project H</td>
-                  </tr>
-                </tbody>
-              </table>
+              <div className="overflow-x-auto">
+                <table className="w-full text-xs sm:text-sm text-gray-300">
+                  <thead className="text-gray-100 text-[10px] sm:text-xs uppercase">
+                    <tr>
+                      <th className="px-2 sm:px-3 py-2 border-r border-[#2A2C3D] text-left whitespace-nowrap min-w-[90px]">
+                        REVENUE
+                      </th>
+                      <th className="px-2 sm:px-3 py-2 border-r border-[#2A2C3D] text-right whitespace-nowrap min-w-[70px]">
+                        COGS
+                      </th>
+                      <th className="px-2 sm:px-3 py-2 border-r border-[#2A2C3D] text-right whitespace-nowrap min-w-[90px]">
+                        OVERHEAD
+                      </th>
+                      <th className="px-2 sm:px-3 py-2 border-r border-[#2A2C3D] text-right whitespace-nowrap min-w-[100px]">
+                        NET PROFIT
+                      </th>
+                      <th className="px-2 sm:px-3 py-2 border-r border-[#2A2C3D] text-right whitespace-nowrap min-w-[80px]">
+                        SELLER
+                      </th>
+                      <th className="px-2 sm:px-3 py-2 border-r border-[#2A2C3D] text-right min-w-[60px]">
+                        {/* actions column */}
+                      </th>
+                    </tr>
+                  </thead>
+
+                  <tbody>
+                    <tr className="bg-[#252A51]">
+                      <td className="px-2 sm:px-3 py-2 whitespace-nowrap">
+                        Project A
+                      </td>
+                      <td className="px-2 sm:px-3 py-2 text-right whitespace-nowrap"></td>
+                      <td className="px-2 sm:px-3 py-2 text-right text-[#00D394] whitespace-nowrap"></td>
+                      <td className="px-2 sm:px-3 py-2 text-right text-[#00D394] whitespace-nowrap"></td>
+                      <td className="px-2 sm:px-3 py-2 text-right text-[#00D394] whitespace-nowrap"></td>
+                      <td className="px-2 sm:px-3 py-2 text-right text-[#00D394] whitespace-nowrap min-w-[120px]">
+                        <div className="flex justify-end items-center gap-1">
+                          <span>€1,034,516</span>
+                          <span className="text-xs font-medium">+20%</span>
+                        </div>
+                      </td>
+                    </tr>
+
+                    <tr>
+                      <td className="px-2 sm:px-3 py-2 whitespace-nowrap">
+                        Project B
+                      </td>
+                    </tr>
+
+                    <tr className="bg-[#252A51]">
+                      <td className="px-2 sm:px-3 py-2 whitespace-nowrap">
+                        Project C
+                      </td>
+                      <td className="px-2 sm:px-3 py-2 text-right whitespace-nowrap"></td>
+                      <td className="px-2 sm:px-3 py-2 text-right whitespace-nowrap"></td>
+                      <td className="px-2 sm:px-3 py-2 text-right whitespace-nowrap"></td>
+                      <td className="px-2 sm:px-3 py-2 text-right whitespace-nowrap"></td>
+                      <td className="px-2 sm:px-3 py-2 text-right whitespace-nowrap"></td>
+                    </tr>
+
+                    <tr>
+                      <td className="px-2 sm:px-3 py-2 whitespace-nowrap">
+                        Project D
+                      </td>
+                    </tr>
+
+                    <tr className="bg-[#252A51]">
+                      <td className="px-2 sm:px-3 py-2 whitespace-nowrap">
+                        Project E
+                      </td>
+                      <td className="px-2 sm:px-3 py-2 text-right whitespace-nowrap"></td>
+                      <td className="px-2 sm:px-3 py-2 text-right whitespace-nowrap"></td>
+                      <td className="px-2 sm:px-3 py-2 text-right whitespace-nowrap"></td>
+                      <td className="px-2 sm:px-3 py-2 text-right whitespace-nowrap"></td>
+                      <td className="px-2 sm:px-3 py-2 text-right whitespace-nowrap"></td>
+                    </tr>
+
+                    <tr>
+                      <td className="px-2 sm:px-3 py-2 whitespace-nowrap">
+                        Project F
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
             </div>
           </div>
         </SectionPanel>
@@ -342,7 +355,7 @@ export default function Marketing() {
               </h1>
 
               {/* Monthly summary row */}
-              <div className="flex items-center justify-between bg-[#F04245] p-2 mb-5 rounded">
+              <div className="flex items-center justify-between bg-[#00D394] p-2 mb-5 rounded">
                 <h2 className="text-xs sm:text-sm text-[#1F1F1F]">MONTHLY</h2>
 
                 <p className="text-white">
@@ -383,89 +396,73 @@ export default function Marketing() {
                     <td className="px-2 sm:px-3 bg-[#252A51] py-2">
                       Belastingdienst
                     </td>
-                    <td className="px-2 sm:px-3 py-2 text-right">€1,034,516</td>
-                    <td className="px-2 sm:px-3 py-2 text-right text-[#00D394]">
-                      +20%
-                    </td>
+                    <td className="px-2 sm:px-3 py-2 text-right"></td>
+                    <td className="px-2 sm:px-3 py-2 text-right text-[#00D394]"></td>
                     <td className="px-2 sm:px-3 py-2 bg-[#252A51] text-right">
                       €400,000
                     </td>
-                    <td className="px-2 sm:px-3 py-2 bg-[#252A51] text-right">
-                      John Doe
-                    </td>
+                    <td className="px-2 sm:px-3 py-2 bg-[#252A51] text-right"></td>
                   </tr>
                   <tr>
                     <td className="px-2 sm:px-3 py-2">Lonen en Salarissen</td>
-                    <td className="px-2 sm:px-3 py-2 text-right">€850,000</td>
-                    <td className="px-2 sm:px-3 py-2 text-right">+10%</td>
+                    <td className="px-2 sm:px-3 py-2 text-right"></td>
+                    <td className="px-2 sm:px-3 py-2 text-right"></td>
                     <td className="px-2 sm:px-3 py-2 text-right">€300,000</td>
-                    <td className="px-2 sm:px-3 py-2 text-right">Jane Smith</td>
+                    <td className="px-2 sm:px-3 py-2 text-right"></td>
                   </tr>
                   <tr className="">
                     <td className="px-2 sm:px-3 bg-[#252A51] py-2">
                       Sociale Lasten
                     </td>
-                    <td className="px-2 sm:px-3 py-2 text-right">€920,000</td>
-                    <td className="px-2 sm:px-3 py-2 text-right">+15%</td>
+                    <td className="px-2 sm:px-3 py-2 text-right"></td>
+                    <td className="px-2 sm:px-3 py-2 text-right"></td>
                     <td className="px-2 sm:px-3 py-2 bg-[#252A51] text-right">
                       €350,000
                     </td>
-                    <td className="px-2 sm:px-3 py-2 bg-[#252A51] text-right">
-                      Ali Khan
-                    </td>
+                    <td className="px-2 sm:px-3 py-2 bg-[#252A51] text-right"></td>
                   </tr>
                   <tr>
                     <td className="px-2 sm:px-3 py-2">Projectkosten</td>
-                    <td className="px-2 sm:px-3 py-2 text-right">€780,000</td>
-                    <td className="px-2 sm:px-3 py-2 text-right">+8%</td>
+                    <td className="px-2 sm:px-3 py-2 text-right"></td>
+                    <td className="px-2 sm:px-3 py-2 text-right"></td>
                     <td className="px-2 sm:px-3 py-2 text-right">€250,000</td>
-                    <td className="px-2 sm:px-3 py-2 text-right">
-                      Maria Garcia
-                    </td>
+                    <td className="px-2 sm:px-3 py-2 text-right"></td>
                   </tr>
                   <tr>
                     <td className="px-2 sm:px-3 py-2 bg-[#252A51]">
                       Auto Lease
                     </td>
-                    <td className="px-2 sm:px-3 py-2 text-right">€780,000</td>
-                    <td className="px-2 sm:px-3 py-2 text-right">+8%</td>
+                    <td className="px-2 sm:px-3 py-2 text-right"></td>
+                    <td className="px-2 sm:px-3 py-2 text-right"></td>
                     <td className="px-2 sm:px-3 py-2 bg-[#252A51] text-right">
                       €250,000
                     </td>
-                    <td className="px-2 sm:px-3 py-2 bg-[#252A51] text-right">
-                      Maria Garcia
-                    </td>
+                    <td className="px-2 sm:px-3 py-2 bg-[#252A51] text-right"></td>
                   </tr>
                   <tr>
                     <td className="px-2 sm:px-3 py-2">Autokosten (overig)</td>
-                    <td className="px-2 sm:px-3 py-2 text-right">€780,000</td>
-                    <td className="px-2 sm:px-3 py-2 text-right">+8%</td>
+                    <td className="px-2 sm:px-3 py-2 text-right"></td>
+                    <td className="px-2 sm:px-3 py-2 text-right"></td>
                     <td className="px-2 sm:px-3 py-2 text-right">€250,000</td>
-                    <td className="px-2 sm:px-3 py-2 text-right">
-                      Maria Garcia
-                    </td>
+                    <td className="px-2 sm:px-3 py-2 text-right"></td>
                   </tr>
                   <tr className="">
                     <td className="px-2 sm:px-3 bg-[#252A51] py-2">
                       Sociale Lasten
                     </td>
-                    <td className="px-2 sm:px-3 py-2 text-right">€920,000</td>
-                    <td className="px-2 sm:px-3 py-2 text-right">+15%</td>
+                    <td className="px-2 sm:px-3 py-2 text-right"></td>
+                    <td className="px-2 sm:px-3 py-2 text-right"></td>
                     <td className="px-2 sm:px-3 py-2 bg-[#252A51] text-right">
                       €350,000
                     </td>
-                    <td className="px-2 sm:px-3 py-2 bg-[#252A51] text-right">
-                      Ali Khan
-                    </td>
+                    <td className="px-2 sm:px-3 py-2 bg-[#252A51] text-right"></td>
                   </tr>
                   <tr>
                     <td className="px-2 sm:px-3 py-2">Autokosten (overig)</td>
-                    <td className="px-2 sm:px-3 py-2 text-right">€780,000</td>
-                    <td className="px-2 sm:px-3 py-2 text-right">+8%</td>
+                    <td className="px-2 sm:px-3 py-2 text-right"></td>
+                    <td className="px-2 sm:px-3 py-2 text-right"></td>
                     <td className="px-2 sm:px-3 py-2 text-right">€250,000</td>
-                    <td className="px-2 sm:px-3 py-2 text-right">
-                      Maria Garcia
-                    </td>
+                    <td className="px-2 sm:px-3 py-2 text-right"></td>
                   </tr>
                 </tbody>
               </table>
@@ -539,26 +536,33 @@ export default function Marketing() {
               <table className="w-full text-xs sm:text-sm text-gray-300">
                 <thead className="text-gray-100 text-[10px] sm:text-xs uppercase">
                   <tr>
-                    <th className="px-2 sm:px-3 py-2 border-r border-[#2A2C3D] text-left"></th>
-                    <th className="px-2 sm:px-3 py-2 border-r border-[#2A2C3D] text-left"></th>
-                    <th className="px-2 sm:px-3 py-2 border-r border-[#2A2C3D] text-right">
+                    <th className="px-2 sm:px-3 py-2 border-r border-[#2A2C3D] text-left whitespace-nowrap min-w-[60px]">
+                      {/* First column */}
+                    </th>
+                    <th className="px-2 sm:px-3 py-2 border-r border-[#2A2C3D] text-left whitespace-nowrap min-w-[60px]">
+                      {/* Second column */}
+                    </th>
+                    <th className="px-2 sm:px-3 py-2 border-r border-[#2A2C3D] text-right whitespace-nowrap min-w-[90px]">
                       REVENUE
                     </th>
-                    <th className="px-2 sm:px-3 py-2 border-r border-[#2A2C3D] text-right">
+                    <th className="px-2 sm:px-3 py-2 border-r border-[#2A2C3D] text-right whitespace-nowrap min-w-[70px]">
                       COGS
                     </th>
-                    <th className="px-2 sm:px-3 py-2 border-r border-[#2A2C3D] text-right">
+                    <th className="px-2 sm:px-3 py-2 border-r border-[#2A2C3D] text-right whitespace-nowrap min-w-[90px]">
                       OVERHEAD
                     </th>
-                    <th className="px-2 sm:px-3 py-2 border-r border-[#2A2C3D] text-right">
+                    <th className="px-2 sm:px-3 py-2 border-r border-[#2A2C3D] text-right whitespace-nowrap min-w-[80px]">
                       INCOME
                     </th>
-                    <th className="px-2 sm:px-3 py-2 border-r border-[#2A2C3D] text-right">
+                    <th className="px-2 sm:px-3 py-2 border-r border-[#2A2C3D] text-right whitespace-nowrap min-w-[140px]">
                       NET CASH POSITION
                     </th>
-                    <th className="px-2 sm:px-3 py-2 text-right">Seller</th>
+                    <th className="px-2 sm:px-3 py-2 text-right whitespace-nowrap min-w-[80px]">
+                      SELLER
+                    </th>
                   </tr>
                 </thead>
+
                 <tbody>
                   <tr className="">
                     <td className="px-2 sm:px-3 bg-[#252A51] py-2">MEI</td>

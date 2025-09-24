@@ -16,6 +16,7 @@ import IndustryDashboard from './IndustryDashboard/pages/IndustryDashboard';
 import Client from './ClientFinancial/pages/ClientFinancial';
 import ClientLayout from "./ClientFinancial/layout/Layout"
 import BusinessModelDashboard from './Business/pages/BusinessModelDashboard';
+import MarketingDashboard from './maketing/pages/MarketingDashboard';
 
 const App = () => {
   return (
@@ -107,6 +108,14 @@ const App = () => {
         element={
           <AfterSalesLayout>
           <BusinessModelDashboard />
+        </AfterSalesLayout>
+        }
+      />
+      <Route
+        path="/marketing/dashboard"
+        element={
+          <AfterSalesLayout>
+          <MarketingDashboard/>
         </AfterSalesLayout>
         }
       />

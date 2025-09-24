@@ -9,6 +9,7 @@ const Header = ({ onHamburgerClick }) => {
   const titles = {
     "/sales/dashboard": "Sales Dashboard",
     "/business/dashboard": "Business Dashboard",
+    "/maketing/dashboard": "Marketing Dashboard",
    
   };
 

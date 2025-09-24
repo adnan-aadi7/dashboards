@@ -1,8 +1,9 @@
-import React from "react";
+import React, { useRef, useState, useEffect } from "react";
 import { Sparklines, SparklinesLine } from "react-sparklines";
 import PieChartComponent from "./Piechart";
 import ScalingChart from "./ScallingChart";
-
+import { SparkLineChart } from '@mui/x-charts/SparkLineChart';
+import { areaElementClasses, lineElementClasses } from '@mui/x-charts/LineChart';
 const SectionHeader = ({ text, bg }) => (
   <div
     className={`w-full rounded-t-lg text-white text-xs font-semibold tracking-widest py-1 ${bg}`}
@@ -10,13 +11,50 @@ const SectionHeader = ({ text, bg }) => (
     {text}
   </div>
 );
+const SparkMini = ({
+  data = [120, 135, 110, 145, 130, 160, 140, 125, 155, 170, 150, 105],
+}) => {
+  const containerRef = useRef(null);
+  const [width, setWidth] = useState(120);
 
-// ✅ Sparkline Component (Original with Green Color)
-const SparkMini = ({ data = [120, 135, 110, 145, 130, 160, 140, 125, 155, 170, 150, 105] }) => (
-  <Sparklines data={data} width={120} height={15}>
-    <SparklinesLine color="#78ceb4ff" />
-  </Sparklines>
-);
+  // ✅ ResizeObserver for responsive width
+  useEffect(() => {
+    if (!containerRef.current) return;
+    const observer = new ResizeObserver((entries) => {
+      if (entries[0]) {
+        setWidth(entries[0].contentRect.width);
+      }
+    });
+    observer.observe(containerRef.current);
+    return () => observer.disconnect();
+  }, []);
+
+  return (
+    <div
+      ref={containerRef}
+      className="w-full h-5 flex items-end rounded-b-md overflow-hidden" // ✅ Always stick to bottom
+    >
+      <SparkLineChart
+        data={data}
+        width={width}
+        height={20}
+        area
+        color="#78ceb4ff"
+        margin={{ top: 0, bottom: 0, left: 0, right: 0 }} // ✅ remove gaps
+        sx={{
+          [`& .${areaElementClasses.root}`]: {
+            opacity: 0.15,
+            filter: "drop-shadow(0 2px 4px rgba(120, 206, 180, 0.3))",
+          },
+          [`& .${lineElementClasses.root}`]: {
+            strokeWidth: 1.8,
+            filter: "drop-shadow(0 1px 2px rgba(120, 206, 180, 0.4))",
+          },
+        }}
+      />
+    </div>
+  );
+};
 
 // ✅ Sparkline Component (Red for Financial Model and Other Cards, No Side Margin)
 const SparkMiniRed = ({
@@ -29,7 +67,7 @@ const SparkMiniRed = ({
 
 // Compact Stat Card
 const StatCard = ({ title, value, note, change, children }) => (
-  <div className="rounded-md bg-gradient-to-b from-black to-slate-700 border border-[#252B42] p-1 flex flex-col items-center text-center min-h-[70px]">
+  <div className="rounded-md bg-gradient-to-b from-black to-slate-700 border border-[#252B42]  flex flex-col items-center text-center min-h-[70px]">
     <div className="text-[10px] font-medium tracking-wide text-gray-400 mb-0.5">
       {title}
     </div>
@@ -96,7 +134,7 @@ export default function Cards() {
             value="$97,041.60"
             change="+6%"
           >
-            <div className="mt-auto w-full flex items-end justify-center h-6 -mb-3">
+            <div className="mt-auto w-full flex items-end justify-center h-6 ">
               <SparkMini />
             </div>
           </StatCard>
@@ -105,7 +143,7 @@ export default function Cards() {
             value="$3,516.67"
             change="+12%"
           >
-            <div className="mt-auto w-full flex items-end justify-center h-6 -mb-3">
+            <div className="mt-auto w-full flex items-end justify-center h-6 ">
               <SparkMini />
             </div>
           </StatCard>
@@ -131,7 +169,7 @@ export default function Cards() {
             value="$1,250"
             change="+20%"
           >
-            <div className="mt-auto w-full flex items-end justify-center h-6 -mb-3">
+            <div className="mt-auto w-full flex items-end justify-center h-6">
               <SparkMini />
             </div>
           </StatCard>
@@ -141,7 +179,7 @@ export default function Cards() {
               value="30%"
               change="+12%"
             >
-              <div className="mt-auto w-full flex items-end justify-center h-6 -mb-2">
+              <div className="mt-auto w-full flex items-end justify-center h-6">
                 <SparkMini />
               </div>
             </StatCard>
@@ -150,7 +188,7 @@ export default function Cards() {
               value="$400"
               change="-5%"
             >
-              <div className="mt-auto w-full flex items-end justify-center h-6 -mb-2">
+              <div className="mt-auto w-full flex items-end justify-center h-6">
                 <SparkMini />
               </div>
             </StatCard>
@@ -161,7 +199,7 @@ export default function Cards() {
               value="70%"
               change="+8%"
             >
-              <div className="mt-auto w-full flex items-end justify-center h-6 -mb-2">
+              <div className="mt-auto w-full flex items-end justify-center h-6 ">
                 <SparkMini />
               </div>
             </StatCard>
@@ -170,7 +208,7 @@ export default function Cards() {
               value="$1,866.67"
               change="+3%"
             >
-              <div className="mt-auto w-full flex items-end justify-center h-4 -mb-2">
+              <div className="mt-auto w-full flex items-end justify-center h-4 ">
                 <SparkMini />
               </div>
             </StatCard>

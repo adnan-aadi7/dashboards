@@ -166,7 +166,7 @@ export default function Sales() {
               </div>
             </div>
 
-            <div className="rounded-lg bg-[#0A0F1F]  ">
+            <div className="rounded-lg bg-gradient-to-l  -mt-10">
               <Funnel />
             </div>
           </div>

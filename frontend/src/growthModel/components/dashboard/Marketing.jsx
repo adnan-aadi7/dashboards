@@ -25,7 +25,7 @@ function useElementWidth() {
 }
 
 const SectionHeader = ({ title }) => (
-  <div className="w-full rounded-t-lg bg-gradient-to-r from-[#000000] to-[#ED5E23] text-white text-xs font-semibold tracking-widest px-3 py-2">
+  <div className="w-full rounded-t-lg bg-gradient-to-r from-[#000000] to-[#ED5E23] text-white text-xs font-semibold tracking-widest px-3 py-1">
     {title}
   </div>
 );

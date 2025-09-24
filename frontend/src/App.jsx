@@ -15,6 +15,7 @@ import IndustryLayout from './IndustryDashboard/layout/Layout';
 import IndustryDashboard from './IndustryDashboard/pages/IndustryDashboard';
 import Client from './ClientFinancial/pages/ClientFinancial';
 import ClientLayout from "./ClientFinancial/layout/Layout"
+import BusinessModelDashboard from './Business/pages/BusinessModelDashboard';
 
 const App = () => {
   return (
@@ -101,11 +102,20 @@ const App = () => {
         }
       />
 
+<Route
+        path="/business/dashboard"
+        element={
+          <AfterSalesLayout>
+          <BusinessModelDashboard />
+        </AfterSalesLayout>
+        }
+      />
+
 
       
       </Routes>
 
-      routes
+     
 
   </Router>
    

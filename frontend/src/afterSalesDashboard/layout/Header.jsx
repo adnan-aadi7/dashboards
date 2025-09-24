@@ -6,13 +6,13 @@ const Header = ({ onHamburgerClick }) => {
   const location = useLocation();
 
   // Agar route /sales/dashboard hai to "Sales Dashboard" show karega
-  const headerTitle =
-    location.pathname === "/sales/dashboard"
-      ? "Sales Dashboard"
-      : "ZORG EXIT + AFTERSALES";
+  const titles = {
+    "/sales/dashboard": "Sales Dashboard",
+    "/business/dashboard": "Business Dashboard",
+   
+  };
 
-
-
+  const headerTitle = titles[location.pathname] || "ZORG EXIT + AFTERSALES";
 
 
   return (

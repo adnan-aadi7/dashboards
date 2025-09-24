@@ -1,25 +1,17 @@
 import React from "react";
-import { Sparklines, SparklinesLine } from "react-sparklines";
-
-// ✅ Sparkline Component
-const SparkMini = ({
-  data = [5, 15, 15, 10, 20, 4, 6, 12, 8, 15, 10, 25, 10],
-}) => (
-  <Sparklines data={data} width={100} height={20} margin={0}>
-    <SparklinesLine color="#00D394" />
-  </Sparklines>
-);
 
 // ✅ Generic Stat Card
-const StatCard = ({ title, value, note, change }) => (
-  <div className="rounded-lg bg-[#090D28] border border-[#252B42] flex flex-col items-center text-center h-40">
+const StatCard = ({ title, value, note, change, className }) => (
+  <div
+    className={`rounded-2xl border border-[#252B42] flex flex-col items-center text-center h-40 ${className}`}
+  >
     {/* Title */}
-    <div className="text-[12px] sm:text-[13px] font-medium tracking-widest text-gray-400 mt-4 sm:mt-5 truncate">
+    <div className="text-[12px] sm:text-[13px] font-medium tracking-widest text-gray-200 mt-4 sm:mt-5 truncate">
       {title}
     </div>
 
     {/* Value */}
-    <div className="text-white text-base sm:text-xl font-semibold truncate">
+    <div className="text-white text-base sm:text-3xl font-semibold truncate">
       {value}
     </div>
 
@@ -44,44 +36,31 @@ const StatCard = ({ title, value, note, change }) => (
         )}
       </div>
     )}
-
-    {/* Sparkline — always at bottom */}
-    <div className="mt-auto w-full flex items-end justify-center h-6">
-      <SparkMini />
-    </div>
   </div>
 );
-
 
 // ✅ Main Layout
 export default function Cards() {
   return (
-    <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-3  w-full">
+    <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-3 w-full">
+      <StatCard title="TOTAL PROJECTS" value="6" className="bg-gradient-to-b from-[#090D28] to-[rgba(9,13,40,0)]" />
+      <StatCard title="FORECASTED COSTS" value="4.6M" className="bg-gradient-to-b from-[#090D28] to-[rgba(9,13,40,0)]" />
+
+      {/* 3rd Card with Red Gradient */}
       <StatCard
-        title="NET (FREE) CASH POSITION"
-        value="$7,345,273"
-        change="+12%"
-        note="vs last 3 months"
-      />
-      <StatCard
-        title="BURN RATE"
-        value="$31,987"
-        change="+8%"
-        note="vs last 3 months"
+        title="CURRENT COSTS"
+        value="4.9M"
+        className="bg-gradient-to-b from-[#F04245] to-[rgba(240,66,69,0)]"
       />
 
-     
+      <StatCard title="PLANNED" value="202" className="bg-gradient-to-b from-[#090D28] to-[rgba(9,13,40,0)]" />
+      <StatCard title="CURRENT DURATION" value="159" className="bg-gradient-to-b from-[#090D28] to-[rgba(9,13,40,0)]" />
+
+      {/* 6th Card with Red Gradient */}
       <StatCard
-        title="ANNUAL NET PROFIT"
-        value="$7,345,273"
-        change="+5%"
-        note="vs last 3 months"
-      />
-      <StatCard
-        title="ANNUAL REVENUE"
-        value="$31,987"
-        change="+3%"
-        note="vs last 3 months"
+        title="EXTRA CARD"
+        value="123"
+        className="bg-gradient-to-b from-[#F04245] to-[rgba(240,66,69,0)]"
       />
     </div>
   );

@@ -9,7 +9,7 @@ const LegendDot = ({ color }) => (
 );
 
 export default function ScalingChart() {
-  const yTicks = ["", "5M", "1M", "500K", "100K", "50K"];
+  const yTicks = ["0", "20", "10", "10", "10", ""];
 
   const data = [
     { m: "Jan", blue: 50, green: 25, pink: 10 },

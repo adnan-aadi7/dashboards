@@ -2,8 +2,8 @@ import React from "react";
 
 const TotalPilar = () => {
   return (
-    <div className="flex flex-col w-[100px] bg-[#090D28]  rounded-xl px-3 pt-3 pb-4">
-      <div className="text-sm text-gray-200 text-center font-semibold uppercase tracking-wide leading-tight ">
+    <div className=" bg-[#090D28]   px-2 pt-3 pb-4">
+      <div className="text-[12px] text-gray-200 text-center font-semibold uppercase tracking-wide leading-tight ">
         <div>TOTAL DURATION</div>
         <div>EXIT</div>
       </div>
@@ -20,7 +20,7 @@ const TotalPilar = () => {
       </div>
 
       <div className="mt-4 flex-1 flex items-end justify-center">
-        <div className="w-[120px] h-[250px] rounded-lg bg-[#2A3354] relative overflow-hidden border border-[#3A456B]/40">
+        <div className="w-full h-[250px] rounded-lg bg-[#2A3354] relative overflow-hidden border border-[#3A456B]/40">
           
           {/* Added left-side scale lines to match requested pillar ticks */}
           {Array.from({ length: 8 }).map((_, i) => (
@@ -29,7 +29,7 @@ const TotalPilar = () => {
             </div>
           ))}
           <div className="absolute left-0 right-0 bottom-0  z-10">
-            <div className="w-full h-[75px] rounded-[12px] bg-[#18D359]" />
+            <div className="w-full h-[78px] rounded-[12px] bg-[#18D359]" />
           </div>
         </div>
       </div>

@@ -13,6 +13,8 @@ import BusinessDashboard from './BusinessModel/pages/BusinessDashboard';
 import SalesDashboard from './sales/pages/SalesDashboard';
 import IndustryLayout from './IndustryDashboard/layout/Layout';
 import IndustryDashboard from './IndustryDashboard/pages/IndustryDashboard';
+import Client from './ClientFinancial/pages/ClientFinancial';
+import ClientLayout from "./ClientFinancial/layout/Layout"
 
 const App = () => {
   return (
@@ -37,7 +39,14 @@ const App = () => {
         </IndustryLayout>
       }
     />
-
+ <Route
+      path="/Client/dashboard"
+      element={
+        <ClientLayout>
+          <Client />
+        </ClientLayout>
+      }
+    />
   {/* health care dashboard */}
   <Route
       path="/healthcare/dashboard"

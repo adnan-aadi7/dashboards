@@ -4,8 +4,6 @@ import {
   Line,
   Tooltip,
   ResponsiveContainer,
-  YAxis,
-  XAxis,
 } from "recharts";
 
 const NetProfitChart = () => {
@@ -29,9 +27,10 @@ const NetProfitChart = () => {
   );
 
   return (
-    <div className="relative flex flex-col h-full p-4 text-white">
+    <div className="relative flex flex-col h-80 p-4 text-white">
       {/* Background Table Grid */}
-      <div className="absolute inset-0 top-8 px-4 pb-4 pointer-events-none grid grid-cols-[50px_1fr] z-0">
+      <div className="absolute inset-0 top-8 px-4 pb-6 pointer-events-none grid grid-cols-[50px_1fr] z-0">
+        
         {/* Left Y-axis labels */}
         <div className="flex flex-col justify-between text-[10px] text-gray-400 pr-2">
           {yLabels.map((val, i) => (
@@ -39,20 +38,26 @@ const NetProfitChart = () => {
           ))}
         </div>
 
-        {/* Right months grid */}
-        <div className="grid grid-cols-7 h-full text-[10px] text-gray-500">
+        {/* Right side table grid */}
+        <div className="grid grid-cols-7 h-full">
           {data.map((d, i) => (
             <div
               key={i}
-              className="flex flex-col items-center justify-end border-l border-gray-800"
+              className="flex flex-col justify-between border-l border-gray-800 text-[10px] text-gray-500"
             >
-             
+              {yLabels.map((_, j) => (
+                <div
+                  key={j}
+                  className="border-b border-gray-800 flex-1"
+                ></div>
+              ))}
+              <span className="text-center mt-1">{d.month}</span>
             </div>
           ))}
         </div>
       </div>
 
-      {/* Chart fills remaining height */}
+      {/* Chart overlays */}
       <div className="flex-1 z-20">
         <ResponsiveContainer width="100%" height="100%">
           <LineChart data={data}>
@@ -74,6 +79,8 @@ const NetProfitChart = () => {
               dot={false}
               activeDot={{ r: 6, fill: "#D292B6" }}
             />
+
+            
           </LineChart>
         </ResponsiveContainer>
       </div>

@@ -12,9 +12,9 @@ const SectionHeader = ({ text, bg }) => (
 );
 
 // ✅ Sparkline Component (Original with Green Color)
-const SparkMini = ({ data = [5, 15, 15, 10, 15, 4, 6, 12, 25, 10, 35, 5] }) => (
-  <Sparklines data={data} width={120} height={24}>
-    <SparklinesLine color="#00D394" />
+const SparkMini = ({ data = [120, 135, 110, 145, 130, 160, 140, 125, 155, 170, 150, 105] }) => (
+  <Sparklines data={data} width={120} height={15}>
+    <SparklinesLine color="#78ceb4ff" />
   </Sparklines>
 );
 
@@ -22,7 +22,7 @@ const SparkMini = ({ data = [5, 15, 15, 10, 15, 4, 6, 12, 25, 10, 35, 5] }) => (
 const SparkMiniRed = ({
   data = [5, 10, 5, 20, 30, 4, 6, 12, 25, 18, 40, 15],
 }) => (
-  <Sparklines data={data} width={120} height={28} margin={0}>
+  <Sparklines data={data} width={120} height={15} margin={0}>
     <SparklinesLine color="#FF3B61" />
   </Sparklines>
 );
@@ -207,7 +207,7 @@ export default function Cards() {
       </div>
 
       {/* FINANCIAL MODEL */}
-      <div className="flex w-full bg-gradient-to-r from-[#000000] to-[#20A804] mt-5  rounded-xl text-white text-xl p-2">
+      <div className="flex w-full bg-gradient-to-r from-[#000000] to-[#20A804]   rounded-xl text-white text-xl p-2">
         <h3>FINANCIAL MODEL</h3>
       </div>
       <div className="grid grid-cols-12 px-2 gap-4 items-stretch">

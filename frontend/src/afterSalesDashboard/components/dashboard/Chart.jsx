@@ -66,7 +66,7 @@ const Chart = () => {
   // Chart box
   const padding = { top: 1, right: 24, bottom: 32, left: 48 };
   const width = 900; // viewBox width
-  const height = 220; // viewBox height
+  const height = 180; // viewBox height
 
   const innerWidth = width - padding.left - padding.right;
   const innerHeight = height - padding.top - padding.bottom;
@@ -75,14 +75,16 @@ const Chart = () => {
   const yScale = (v) => padding.top + innerHeight - (v / Y_MAX) * innerHeight;
 
   return (
-    <section className="w-full">
+    <section className="">
       <div className="text-2xl text-gray-300 uppercase tracking-wide">EXIT DURATION CONSECUTIVE STEPS</div>
       <div className="mt-3 rounded-xl bg-[#10152B] border border-[#1F2740]">
-        <div className="px-4  pt-4">
+        <div className="px-2  pt-1">
           <h3 className="text-white text-base md:text-lg font-semibold">QUARTER DEVELOPMENT EXIT DURATION</h3>
         </div>
-        <div className="px-4  pb-4 overflow-x-auto">
-          {/* Legend */}
+        <div className="px-2 ">
+          {/* Legend moved to the end of the card */}
+           {/* Legend at end */}
+        <div className="px-2 pb-3">
           <div className="flex flex-wrap gap-6 mt-3 text-[5px] md:text-[9px] text-gray-300 justify-end">
             {series.map((s) => (
               <div key={s.id} className="inline-flex items-center gap-2">
@@ -92,10 +94,11 @@ const Chart = () => {
             ))}
           </div>
         </div>
+        </div>
 
         {/* Chart */}
         <div className=" ">
-          <svg viewBox={`0 0 ${width} ${height}`} className="w-full h-[280px]  ">
+          <svg viewBox={`0 0 ${width} ${height}`} className="w-full h-[265px]  ">
             {/* Grid background */}
             <rect x="0" y="0" width={width} height={height} fill="#0E1330" rx="12" />
 
@@ -156,18 +159,20 @@ const Chart = () => {
             ))}
           </svg>
         </div>
+
+       
       </div>
 
-      <div className="mt-3">
-        <div className="text-2xl text-gray-300 uppercase tracking-wide">TOTAL DURATION EXIT PHASE</div>
-        <div className="mt-3 grid grid-cols-1 md:grid-cols-2 gap-4">
-          <div className="rounded-xl border border-[#1F2740] px-3 py-3" style={{ background: 'linear-gradient(to bottom, rgba(9,13,40,1) 0%, rgba(9,13,40,0) 100%)' }}>
+      <div className="mt-1">
+        <div className="text-lg text-gray-300 uppercase tracking-wide">TOTAL DURATION EXIT PHASE</div>
+        <div className="mt-1 grid grid-cols-1 md:grid-cols-2 gap-4">
+          <div className="rounded-lg border border-[#1F2740] px-3 py-1" style={{ background: 'linear-gradient(to bottom, rgba(9,13,40,1) 0%, rgba(9,13,40,0) 100%)' }}>
             <div className="text-xs text-gray-400 text-center">GOAL</div>
-            <div className="mt-2 text-2xl text-white font-semibold text-center">28 DAYS</div>
+            <div className="mt-1 text-lg text-white font-semibold text-center">28 DAYS</div>
           </div>
-          <div className="rounded-xl border border-[#1F2740] px-3 py-3" style={{ background: 'linear-gradient(to bottom, rgba(9,13,40,1) 0%, rgba(9,13,40,0) 100%)' }}>
+          <div className="rounded-xl border border-[#1F2740] px-3 py-1" style={{ background: 'linear-gradient(to bottom, rgba(9,13,40,1) 0%, rgba(9,13,40,0) 100%)' }}>
             <div className="text-xs text-gray-400 text-center">NOW</div>
-            <div className="mt-2 text-2xl text-white font-semibold text-center">15.5 DAYS</div>
+            <div className="mt-1 text-lg text-white font-semibold text-center">15.5 DAYS</div>
           </div>
         </div>
       </div>

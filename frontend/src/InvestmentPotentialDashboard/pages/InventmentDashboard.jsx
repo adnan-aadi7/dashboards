@@ -13,7 +13,7 @@ const FinanencialDashboard = () => {
 
       {/* Main Section */}
       <div className="bg-[#181C3A] w-full">
-        <div className="mt-2">
+        <div className="mt-1">
           <div className="grid grid-cols-12 gap-4">
             {/* Cards full width */}
             <div className="col-span-12 px-2">
@@ -24,7 +24,7 @@ const FinanencialDashboard = () => {
       </div>
 
       {/* Growth Model */}
-      <div className="flex bg-gradient-to-r from-black to-[#F3A849] mt-5 ml-2 mr-2 rounded-xl text-white text-xl p-2">
+      <div className="flex bg-gradient-to-r from-black to-[#F3A849] mt-2 ml-2 mr-2 rounded-xl text-white text-xl p-2">
         <h3>GROWTH MODEL</h3>
       </div>
 
@@ -32,7 +32,7 @@ const FinanencialDashboard = () => {
       <div className="bg-[#181C3A] w-full rounded-xl">
         <Social />
       </div>
-      <div className="flex bg-gradient-to-r from-black to-cyan-400 mt-5 ml-2 mr-2 rounded-xl text-white text-xl p-2">
+      <div className="flex bg-gradient-to-r from-black to-cyan-400  ml-2 mr-2 rounded-xl text-white text-xl p-2">
         <h3>BUISNESS MODEL</h3>
       </div>
        {/* Social Section under Growth Model */}
@@ -41,7 +41,7 @@ const FinanencialDashboard = () => {
       </div>
        <div >
       {/* Header */}
-      <div className="flex bg-gradient-to-r from-black to-cyan-400 mt-5 ml-2 mr-2 rounded-xl text-white text-xl p-2">
+      <div className="flex bg-gradient-to-r from-black to-cyan-400 mt-2  ml-2 mr-2 rounded-xl text-white text-xl p-2">
         <h3>ORGANIZATIONAL MODEL</h3>
       </div>
 

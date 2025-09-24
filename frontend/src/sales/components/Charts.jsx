@@ -35,24 +35,35 @@ const SmoothMini = ({ colorStops = ['#10b981', '#60a5fa', '#a855f7'], height = 6
     y: viewH - padB - y * (viewH - 2 * padB)
   }));
 
-  const d = pts.reduce((acc, p, idx) => {
-    if (idx === 0) return `M ${p.x} ${p.y}`;
-    const prev = pts[idx - 1];
-    const cx = (prev.x + p.x) / 2;
-    const cy = (prev.y + p.y) / 2;
-    return acc + ` Q ${cx} ${cy} ${p.x} ${p.y}`;
-  }, '');
+  const buildSmoothPath = (points) => {
+    if (!points || points.length === 0) return '';
+    return points.reduce((acc, p, idx) => {
+      if (idx === 0) return `M ${p.x} ${p.y}`;
+      const prev = points[idx - 1];
+      const cx = (prev.x + p.x) / 2;
+      const cy = (prev.y + p.y) / 2;
+      return acc + ` Q ${cx} ${cy} ${p.x} ${p.y}`;
+    }, '');
+  };
 
-  const current = pts[Math.floor(pts.length * 0.9)] || { x: 0, y: 0 };
+  const currentIndex = Math.floor(pts.length * 0.9);
+  const current = pts[currentIndex] || { x: 0, y: 0 };
+
+  const dPast = buildSmoothPath(pts.slice(0, currentIndex + 1));
+  const dFuture = buildSmoothPath(pts.slice(currentIndex));
+
+  // Match Cards.jsx color behavior: solid past color, soft white future
+  const pastColor = colorStops?.[1] || '#22c55e';
+  const futureColor = '#e5e7ff';
 
   return (
-    <div ref={ref} className="w-full h-full">
-      <svg viewBox={`0 0 ${viewW} ${viewH}`} className="w-full h-full" style={{ overflow: 'visible' }}>
+    <div ref={ref} className="w-full h-full flex justify-end">
+      <svg viewBox={`0 0 ${viewW} ${viewH}`} className="w-29 h-full" style={{ overflow: 'visible' }}>
         <defs>
           <linearGradient id="kpiLine" x1="0%" y1="0%" x2="100%" y2="0%">
             <stop offset="0%" stopColor={colorStops[0]} />
             <stop offset="60%" stopColor={colorStops[1]} />
-            <stop offset="100%" stopColor={colorStops[2]} />
+            <stop offset="100%" stopColor={colorStops[2]} /> 
           </linearGradient>
           <filter id="kpiGlow">
             <feGaussianBlur stdDeviation="3" result="coloredBlur" />
@@ -62,8 +73,11 @@ const SmoothMini = ({ colorStops = ['#10b981', '#60a5fa', '#a855f7'], height = 6
             </feMerge>
           </filter>
         </defs>
-        <path d={d} fill="none" stroke="url(#kpiLine)" strokeWidth="6" strokeLinecap="round" strokeLinejoin="round" />
-        <circle cx={current.x} cy={current.y} r="9" fill={colorStops[2]} filter="url(#kpiGlow)" opacity="0.35" />
+        {/* Past segment solid color like Cards.jsx */}
+        <path d={dPast} fill="none" stroke={pastColor} strokeWidth="6" strokeLinecap="round" strokeLinejoin="round" />
+        {/* Future segment soft white like Cards.jsx */}
+        <path d={dFuture} fill="none" stroke={futureColor} strokeWidth="6" strokeLinecap="round" strokeLinejoin="round" />
+        <circle cx={current.x} cy={current.y} r="9" fill={pastColor} filter="url(#kpiGlow)" opacity="0.35" />
         <circle cx={current.x} cy={current.y} r="5" fill="#0B1020" />
       </svg>
     </div>
@@ -83,7 +97,7 @@ const ConversionForecast = () => {
   ];
   const viewW = 700;
   const viewH = 320;
-  const pad = { l: 60, r: 16, t: 24, b: 36 };
+  const pad = { l: 10, r: 16, t: 1, b: 1 };
 
   const px = p => pad.l + p.x * (viewW - pad.l - pad.r);
   const py = p => pad.t + p.y * (viewH - pad.t - pad.b);
@@ -91,27 +105,27 @@ const ConversionForecast = () => {
   const d = points.map((p, i) => `${i === 0 ? 'M' : 'L'} ${px(p)} ${py(p)}`).join(' ');
   const last = points[points.length - 1];
 
-  const yTicks = [0.85, 0.70, 0.50, 0.40, 0.20];
+  const yTicks = [0.90, 0.75, 0.60, 0.45, 0.30, 0.15];
 
   return (
     <div className="bg-[#0B1020] rounded-xl border border-[#252B42] p-4 h-full">
-      <div className="text-white text-xl font-semibold mb-3">Conversion Forecast</div>
+      <div className="text-white text-4xl font-extrabold mb-3">Conversion Forecast</div>
       <svg viewBox={`0 0 ${viewW} ${viewH}`} className="w-full h-[320px]">
         <defs>
-          <pattern id="hGrid" width="4" height="32" patternUnits="userSpaceOnUse">
+          <pattern id="hGrid" width="4" height="50" patternUnits="userSpaceOnUse">
             <path d={`M 0 0 L ${viewW} 0`} stroke="rgba(148,163,184,0.15)" strokeWidth="1" />
           </pattern>
         </defs>
         <rect x="0" y="0" width={viewW} height={viewH} fill="transparent" />
         {yTicks.map((y, i) => (
           <g key={i}>
-            <text x={12} y={py({ x: 0, y }) + 4} className="fill-gray-400" fontSize="12">8M</text>
-            <line x1={pad.l} y1={py({ x: 0, y })} x2={viewW - pad.r} y2={py({ x: 0, y })} stroke="rgba(148,163,184,0.15)" strokeWidth="1" />
+            <text x={12} y={py({ x: 0, y }) + 4} className="fill-gray-300" fontSize="14" fontWeight="600">8M</text>
+            <line x1={pad.l} y1={py({ x: 0, y })} x2={viewW - pad.r} y2={py({ x: 0, y })} stroke="rgba(148,163,184,0.25)" strokeWidth="1" />
           </g>
         ))}
-        <path d={d} fill="none" stroke="#f59e0b" strokeWidth="3" strokeLinecap="round" />
-        <circle cx={px(last)} cy={py(last)} r="4" fill="#f59e0b" />
-        <text x={px(last) + 6} y={py(last) - 4} className="fill-gray-300" fontSize="12">€8.3M</text>
+        <path d={d} fill="none" stroke="#f59e0b" strokeWidth="6" strokeLinecap="round" strokeLinejoin="round" />
+        <circle cx={px(last)} cy={py(last)} r="5" fill="#f59e0b" />
+        <text x={px(last) + 6} y={py(last) - 4} className="fill-white" fontSize="16" fontWeight="700">€8.3M</text>
       </svg>
     </div>
   );
@@ -140,8 +154,8 @@ const Charts = () => {
   return (
     <div className="grid grid-cols-12 gap-4">
       <div className="col-span-12 md:col-span-5 flex flex-col gap-4">
-        <KpiCard title="Forecast Revenue" subtitle="This Month" value="€3.55M" pillText="+20%" gradient={["#10b981", "#22c55e", "#a855f7"]} />
-        <KpiCard title="Team Conversion" subtitle="This Month" value="81%" pillText="+12%" gradient={["#60a5fa", "#3b82f6", "#a855f7"]} />
+        <KpiCard title="Forecast Revenue" subtitle="This Month" value="€3.55M" pillText="+20%" gradient={["#10b981", "#22c55e", "#22c55e"]} />
+        <KpiCard title="Team Conversion" subtitle="This Month" value="81%" pillText="+12%" gradient={["#60a5fa", "#3b82f6", "#3b82f6"]} />
       </div>
       <div className="col-span-12 md:col-span-7">
         <ConversionForecast />

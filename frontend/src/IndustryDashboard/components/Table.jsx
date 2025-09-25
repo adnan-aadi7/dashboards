@@ -35,26 +35,42 @@ const shortRows = [
       legalDue: { done: true },
     },
   },
+    {
+    street: "Project C",
+    progress: { value: 12, total: 30, barColor: "#efa844ff" },
+    stageData: {
+      marketResearch: { done: true },
+      legalDue: { done: true },
+    },
+  },
+    {
+    street: "Project D",
+    progress: { value: 12, total: 30, barColor: "#7aef44ff" },
+    stageData: {
+      marketResearch: { done: true },
+      legalDue: { done: true },
+    },
+  },
 ];
 
 // --- Long table rows ---
 const longRows = [
   {
-    street: "Project C",
-    progress: { value: 21, total: 30, barColor: "#F59E0B" },
+    street: "Project A",
+    progress: { value: 21, total: 30, barColor: "#f52a0bff" },
     stageData: {
       marketResearch: { done: true },
       legalDue: { done: true },
       technicalDue: { done: true },
-      floorplan: { color: "#F59E0B", textColor: "#0E1330", rightTag: "15 WK" },
-      taxOptimization: { done: true },
-      financing: { color: "#22C55E", textColor: "#FFFFFF", rightTag: "2 WK" },
-      exitStrategy: { done: true },
+      floorplan: { textColor: "#0E1330", rightTag: "15 WK" },
+      taxOptimization: { color: "#ff3c00ff", done: true },
+      financing: { color: "#ff3c00ff", textColor: "#FFFFFF", rightTag: "2 WK" },
+      exitStrategy: {color: "#ff3c00ff", done: true },
     },
   },
   {
-    street: "Project D",
-    progress: { value: 25, total: 30, barColor: "#22C55E" },
+    street: "Project B",
+    progress: { value: 25, total: 30, barColor: "#ff3d0cff" },
     stageData: {
       marketResearch: { done: true },
       legalDue: { done: true },
@@ -62,46 +78,85 @@ const longRows = [
       floorplan: { done: true },
       taxOptimization: { done: true },
       financing: { done: true },
-      exitStrategy: { done: true },
+      exitStrategy: {color: "#ff3c00ff", done: true },
+    },
+  },
+  {
+    street: "Project C",
+    progress: { value: 25, total: 30, barColor: "#ff810cff" },
+    stageData: {
+      marketResearch: { done: true },
+      legalDue: { done: true },
+      technicalDue: { done: true },
+      floorplan: { done: true },
+      taxOptimization: { done: true },
+      financing: { done: true },
+      exitStrategy: {color: "#ff3c00ff", done: true },
+    },
+  },
+  {
+    street: "Project D",
+    progress: { value: 25, total: 30, barColor: "#45ff0cff" },
+    stageData: {
+      marketResearch: { done: true },
+      legalDue: { done: true },
+      technicalDue: { done: true },
+      floorplan: { done: true },
+      taxOptimization: { done: true },
+      financing: { done: true },
+      exitStrategy: {color: "#ff3c00ff", done: true },
     },
   },
 ];
 
-// --- Table Component ---
-function ActiveDealsTable({ data = [], stages = [] }) {
+function ActiveDealsTable({ data = [], stages = [], compact = false }) {
   return (
     <section className="w-full bg-[#181C3A] rounded-lg overflow-hidden">
-      <div className="p-2">
+      <div className="">
         {data.map((r, i) => {
           const pct = Math.min(100, Math.max(0, (r.progress.value / r.progress.total) * 100));
           return (
-            <div key={i} className="py-1.5">
+            <div key={i} className="py-1">
               <div
-                className="w-full grid items-center gap-1.5"
+                className="w-full grid items-center gap-1"
                 style={{
-                  gridTemplateColumns: `120px 180px repeat(${stages.length}, 1fr)`,
+                  gridTemplateColumns: `90px 120px repeat(${stages.length}, minmax(70px, 1fr))`,
                 }}
               >
                 {/* Street */}
                 <div>
-                  <span className="inline-block rounded-full bg-black text-white/90 text-[11px] px-4 py-1.5">
+                  <span
+                    className={`inline-block rounded-full bg-black text-white/90 ${
+                      compact ? "text-[8px] px-2 py-0.5" : "text-[10px] px-3 py-1"
+                    }`}
+                  >
                     {r.street}
                   </span>
                 </div>
 
                 {/* Progress Bar */}
-                <div className="relative h-7 rounded-full bg-[#2A334D]">
+                <div
+                  className={`relative rounded-full bg-[#2A334D] ${
+                    compact ? "h-5 text-[7px]" : "h-6 text-[9px]"
+                  }`}
+                >
                   <div
                     className="absolute left-0 top-0 h-full rounded-full"
                     style={{ width: `${pct}%`, background: r.progress.barColor }}
                   />
                   <div
-                    className="absolute left-2 top-1/2 -translate-y-1/2 rounded-full px-2.5 py-[2px] text-white text-[9px] font-semibold"
+                    className={`absolute left-2 top-1/2 -translate-y-1/2 rounded-full ${
+                      compact ? "px-1.5 py-[1px] text-[7px]" : "px-2 py-[1px] text-[8px]"
+                    } text-white font-semibold`}
                     style={{ background: r.progress.barColor }}
                   >
                     Over
                   </div>
-                  <span className="absolute right-2 top-1/2 -translate-y-1/2 text-white text-[10px] font-semibold">
+                  <span
+                    className={`absolute right-2 top-1/2 -translate-y-1/2 text-white font-semibold ${
+                      compact ? "text-[7px]" : "text-[9px]"
+                    }`}
+                  >
                     {r.progress.value}/{r.progress.total} DAGEN
                   </span>
                 </div>
@@ -112,19 +167,42 @@ function ActiveDealsTable({ data = [], stages = [] }) {
                   const pillColor = cfg.color || (cfg.done ? "#2A3354" : "#2A3354");
                   const textColor = cfg.textColor || "#FFFFFF";
                   return (
-                    <div key={s.key} className="flex items-center">
+                    <div key={s.key} className="flex items-center min-w-0">
                       <div
-                        className="flex items-center justify-between rounded-full h-7 px-2 w-full"
+                        className={`flex items-center justify-between rounded-full w-full truncate ${
+                          compact ? "h-5 px-1.5" : "h-6 px-2"
+                        }`}
                         style={{ backgroundColor: pillColor }}
                       >
-                        <span className="text-[9px] font-semibold truncate" style={{ color: textColor }}>
+                        <span
+                          className={`font-semibold truncate ${
+                            compact ? "text-[7px]" : "text-[8px]"
+                          }`}
+                          style={{ color: textColor }}
+                        >
                           {s.label}
                         </span>
                         {cfg.rightTag ? (
-                          <span className="text-[9px] font-semibold text-white">{cfg.rightTag}</span>
+                          <span
+                            className={`ml-1 font-semibold text-white ${
+                              compact ? "text-[7px]" : "text-[8px]"
+                            }`}
+                          >
+                            {cfg.rightTag}
+                          </span>
                         ) : cfg.done ? (
-                          <span className="ml-2 inline-flex items-center justify-center w-4.5 h-4.5 rounded-full bg-white">
-                            <span className="text-[#16A34A] text-[11px] font-bold">✓</span>
+                          <span
+                            className={`ml-1 inline-flex items-center justify-center rounded-full bg-white ${
+                              compact ? "w-3 h-3" : "w-4 h-4"
+                            }`}
+                          >
+                            <span
+                              className={`text-[#16A34A] font-bold ${
+                                compact ? "text-[7px]" : "text-[9px]"
+                              }`}
+                            >
+                              ✓
+                            </span>
                           </span>
                         ) : null}
                       </div>
@@ -140,14 +218,21 @@ function ActiveDealsTable({ data = [], stages = [] }) {
   );
 }
 
-// --- Page with Exit + Tables ---
+
+
 export default function DealsPage() {
   return (
-    <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 mt-10">
+    <div
+      className="
+        grid gap-3 mt-10 
+        grid-cols-1        /* mobile: stack */
+        md:grid-cols-[30%_70%]  /* tablet/desktop: custom widths */
+      "
+    >
       <div>
         {/* Exit above short table */}
         <Exit
-          title="ACTIEVE DEALS 2e CONTRACTFASE EXIT"
+          title="ACTIVE DEALS DEVELOPMENT (PROPERTY PRESERVATION)"
           label="Internal Research"
           counts={{ red: 2, orange: 1, blue: 1 }}
         />
@@ -159,7 +244,7 @@ export default function DealsPage() {
       <div>
         {/* Exit above long table */}
         <Exit
-          title="ACTIEVE DEALS 3e CONTRACTFASE EXIT"
+          title="ACTIVE DEALS DEVELOPMENT (PROPERTY RESALE)"
           label="Legal Research"
           counts={{ red: 1, orange: 2, blue: 3 }}
         />
@@ -170,3 +255,5 @@ export default function DealsPage() {
     </div>
   );
 }
+
+
